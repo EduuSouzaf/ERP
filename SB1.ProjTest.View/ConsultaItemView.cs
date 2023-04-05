@@ -2,13 +2,6 @@
 using SB1.ProjTest.Model;
 using SB1.ProjTest.Relatorio;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SB1.ProjTest.View
@@ -20,12 +13,12 @@ namespace SB1.ProjTest.View
         public ConsultaItemView()
         {
             InitializeComponent();
-            ConsultarLista();
+            Consultar(null, null);
         }
         #endregion
         //Metodos
         #region Consultar
-        private void Consultar(int id, string nome)
+        private void Consultar(int? id, string nome)
         {
             try
             {
@@ -57,21 +50,6 @@ namespace SB1.ProjTest.View
             }
         }
         #endregion
-        #region ConsultarLista
-        public void ConsultarLista()
-        {
-            try
-            {
-                BindingSource bindingSourceListaItem;
-
-                bindingSourceListaItem = ItemController.ConsultarListaItem();
-
-                dgConsultaItem.DataSource = bindingSourceListaItem;
-
-            }
-            catch { }
-        }
-        #endregion 
         #region AbrirCadastro
         public void AbrirCadastro()
         {
@@ -83,7 +61,6 @@ namespace SB1.ProjTest.View
                 //centraliza a tela quando ela é executada
                 cadastrarItem.StartPosition = FormStartPosition.CenterScreen;
                 cadastrarItem.Show();
-                Close();
             }
             catch (Exception ex)
             {
@@ -92,7 +69,6 @@ namespace SB1.ProjTest.View
                 MessageBoxButtons botoes = MessageBoxButtons.OK;
                 MessageBoxIcon icone = MessageBoxIcon.Error;
                 MessageBox.Show(mensagem, titulo, botoes, icone);
-
             }
         }
         #endregion
@@ -115,22 +91,36 @@ namespace SB1.ProjTest.View
                     if (resultado == DialogResult.Yes)
                     {
                         Item item = ItemController.Consultar(id);
-                        if (ItemController.Excluir(item))
-                        {
-                            mensagem = "Parceiro de Negócio " + id.ToString() + " - " + nome + "Ecluído com sucesso";
-                            titulo = "Aviso.";
-                            botoes = MessageBoxButtons.OK;
-                            icone = MessageBoxIcon.Information;
-                            MessageBox.Show(mensagem, titulo, botoes, icone);
 
-                            if (string.IsNullOrEmpty(txId.Text))
+                        ItemPedido itemPed = PedidoController.ConsultarItemPedido(id);
+
+                        if (itemPed == null)
+                        {
+                            if (ItemController.Excluir(item))
                             {
-                                Consultar(0, txNome.Text);
+                                mensagem = "Item " + id.ToString() + " - " + nome + "Excluído com sucesso";
+                                titulo = "Aviso.";
+                                botoes = MessageBoxButtons.OK;
+                                icone = MessageBoxIcon.Information;
+                                MessageBox.Show(mensagem, titulo, botoes, icone);
+
+                                if (string.IsNullOrEmpty(txId.Text))
+                                {
+                                    Consultar(0, txNome.Text);
+                                }
+                                else
+                                {
+                                    Consultar(Convert.ToInt32(txId.Text), null);
+                                }
                             }
-                            else
-                            {
-                                Consultar(Convert.ToInt32(txId.Text), null);
-                            }
+                        }
+                        else
+                        {
+                            mensagem = "Não é possível excluir nenhum item que esteja vinculado a um pedido. ";
+                            titulo = "Alert ";
+                            botoes = MessageBoxButtons.OK;
+                            icone = MessageBoxIcon.Stop;
+                            MessageBox.Show(mensagem, titulo, botoes, icone);
                         }
                     }
                 }
@@ -169,12 +159,6 @@ namespace SB1.ProjTest.View
         }
         #endregion
         //Eventos
-        #region dgConsultaItem_CellContentClick
-        private void dgConsultaItem_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            AbrirCadastro();
-        }
-        #endregion
         #region txNome_KeyPress
         private void txNome_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -189,9 +173,7 @@ namespace SB1.ProjTest.View
         {
             if (!(char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar)))
             {
-
                 e.Handled = true;
-
             }
         }
         #endregion
@@ -247,6 +229,13 @@ namespace SB1.ProjTest.View
         private void btCancelar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+        #endregion
+
+        #region dgConsultaItem_CellMouseDoubleClick
+        private void dgConsultaItem_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            AbrirCadastro();
         }
         #endregion
     }

@@ -28,20 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btSelecionarItem = new System.Windows.Forms.Button();
             this.gpListaItens = new System.Windows.Forms.GroupBox();
+            this.btCadastrarFornecedor = new System.Windows.Forms.Button();
             this.dgConsultaParceiro = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.parceiroNegocio = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -53,11 +54,6 @@
             this.ativo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataAtualizacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tipoDocumento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.lbId = new System.Windows.Forms.Label();
-            this.txNome = new System.Windows.Forms.TextBox();
-            this.txId = new System.Windows.Forms.TextBox();
-            this.btConsultar = new System.Windows.Forms.Button();
-            this.lbNome = new System.Windows.Forms.Label();
             this.gpListaItens.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgConsultaParceiro)).BeginInit();
             this.SuspendLayout();
@@ -79,15 +75,29 @@
             // gpListaItens
             // 
             this.gpListaItens.BackColor = System.Drawing.SystemColors.Window;
+            this.gpListaItens.Controls.Add(this.btCadastrarFornecedor);
             this.gpListaItens.Controls.Add(this.dgConsultaParceiro);
             this.gpListaItens.Controls.Add(this.btSelecionarItem);
             this.gpListaItens.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gpListaItens.Location = new System.Drawing.Point(16, 50);
+            this.gpListaItens.Location = new System.Drawing.Point(16, 16);
             this.gpListaItens.Name = "gpListaItens";
             this.gpListaItens.Size = new System.Drawing.Size(671, 402);
             this.gpListaItens.TabIndex = 19;
             this.gpListaItens.TabStop = false;
             this.gpListaItens.Text = "Lista de Itens";
+            // 
+            // btCadastrarFornecedor
+            // 
+            this.btCadastrarFornecedor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btCadastrarFornecedor.BackColor = System.Drawing.SystemColors.Window;
+            this.btCadastrarFornecedor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btCadastrarFornecedor.Location = new System.Drawing.Point(110, 362);
+            this.btCadastrarFornecedor.Name = "btCadastrarFornecedor";
+            this.btCadastrarFornecedor.Size = new System.Drawing.Size(122, 34);
+            this.btCadastrarFornecedor.TabIndex = 37;
+            this.btCadastrarFornecedor.Text = "Cadastrar Parceiro";
+            this.btCadastrarFornecedor.UseVisualStyleBackColor = false;
+            this.btCadastrarFornecedor.Click += new System.EventHandler(this.btCadastrarFornecedor_Click);
             // 
             // dgConsultaParceiro
             // 
@@ -95,17 +105,17 @@
             this.dgConsultaParceiro.AllowUserToDeleteRows = false;
             this.dgConsultaParceiro.AllowUserToResizeColumns = false;
             this.dgConsultaParceiro.AllowUserToResizeRows = false;
-            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Window;
-            this.dgConsultaParceiro.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            this.dgConsultaParceiro.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgConsultaParceiro.BackgroundColor = System.Drawing.SystemColors.ControlDark;
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle14.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgConsultaParceiro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ActiveCaption;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgConsultaParceiro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgConsultaParceiro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgConsultaParceiro.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
@@ -118,29 +128,29 @@
             this.ativo,
             this.dataAtualizacao,
             this.tipoDocumento});
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle22.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.HotTrack;
-            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgConsultaParceiro.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.HotTrack;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgConsultaParceiro.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgConsultaParceiro.Location = new System.Drawing.Point(6, 20);
             this.dgConsultaParceiro.MultiSelect = false;
             this.dgConsultaParceiro.Name = "dgConsultaParceiro";
             this.dgConsultaParceiro.ReadOnly = true;
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle23.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle23.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle23.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle23.SelectionForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            dataGridViewCellStyle23.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgConsultaParceiro.RowHeadersDefaultCellStyle = dataGridViewCellStyle23;
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle24.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.dgConsultaParceiro.RowsDefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle11.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgConsultaParceiro.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.dgConsultaParceiro.RowsDefaultCellStyle = dataGridViewCellStyle12;
             this.dgConsultaParceiro.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgConsultaParceiro.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.Color.Black;
             this.dgConsultaParceiro.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
@@ -152,12 +162,12 @@
             // id
             // 
             this.id.DataPropertyName = "id";
-            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.ScrollBar;
-            dataGridViewCellStyle15.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle15.ForeColor = System.Drawing.Color.White;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.Color.White;
-            this.id.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.ScrollBar;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.White;
+            this.id.DefaultCellStyle = dataGridViewCellStyle3;
             this.id.HeaderText = "ID";
             this.id.Name = "id";
             this.id.ReadOnly = true;
@@ -166,8 +176,8 @@
             // parceiroNegocio
             // 
             this.parceiroNegocio.DataPropertyName = "parceiroNegocio";
-            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.parceiroNegocio.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.parceiroNegocio.DefaultCellStyle = dataGridViewCellStyle4;
             this.parceiroNegocio.HeaderText = "Tipo de Parceiro";
             this.parceiroNegocio.Name = "parceiroNegocio";
             this.parceiroNegocio.ReadOnly = true;
@@ -177,8 +187,8 @@
             // nome
             // 
             this.nome.DataPropertyName = "nome";
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.nome.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.nome.DefaultCellStyle = dataGridViewCellStyle5;
             this.nome.HeaderText = "Nome";
             this.nome.Name = "nome";
             this.nome.ReadOnly = true;
@@ -187,8 +197,8 @@
             // documento
             // 
             this.documento.DataPropertyName = "documento";
-            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.documento.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.documento.DefaultCellStyle = dataGridViewCellStyle6;
             this.documento.HeaderText = "Documento";
             this.documento.Name = "documento";
             this.documento.ReadOnly = true;
@@ -198,8 +208,8 @@
             // telefone
             // 
             this.telefone.DataPropertyName = "telefone";
-            dataGridViewCellStyle19.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.telefone.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.telefone.DefaultCellStyle = dataGridViewCellStyle7;
             this.telefone.HeaderText = "Telefone";
             this.telefone.Name = "telefone";
             this.telefone.ReadOnly = true;
@@ -208,8 +218,8 @@
             // eMail
             // 
             this.eMail.DataPropertyName = "eMail";
-            dataGridViewCellStyle20.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.eMail.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.eMail.DefaultCellStyle = dataGridViewCellStyle8;
             this.eMail.HeaderText = "E-mail";
             this.eMail.Name = "eMail";
             this.eMail.ReadOnly = true;
@@ -219,8 +229,8 @@
             // dataInsercao
             // 
             this.dataInsercao.DataPropertyName = "dataInsercao";
-            dataGridViewCellStyle21.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.dataInsercao.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.ScrollBar;
+            this.dataInsercao.DefaultCellStyle = dataGridViewCellStyle9;
             this.dataInsercao.HeaderText = "Data de Inserção";
             this.dataInsercao.Name = "dataInsercao";
             this.dataInsercao.ReadOnly = true;
@@ -250,77 +260,18 @@
             this.tipoDocumento.ReadOnly = true;
             this.tipoDocumento.Visible = false;
             // 
-            // lbId
-            // 
-            this.lbId.AutoSize = true;
-            this.lbId.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbId.Location = new System.Drawing.Point(13, 24);
-            this.lbId.Name = "lbId";
-            this.lbId.Size = new System.Drawing.Size(40, 13);
-            this.lbId.TabIndex = 16;
-            this.lbId.Text = "Código";
-            // 
-            // txNome
-            // 
-            this.txNome.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txNome.Location = new System.Drawing.Point(159, 21);
-            this.txNome.Name = "txNome";
-            this.txNome.Size = new System.Drawing.Size(429, 20);
-            this.txNome.TabIndex = 15;
-            // 
-            // txId
-            // 
-            this.txId.Location = new System.Drawing.Point(59, 21);
-            this.txId.Name = "txId";
-            this.txId.Size = new System.Drawing.Size(46, 20);
-            this.txId.TabIndex = 14;
-            // 
-            // btConsultar
-            // 
-            this.btConsultar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btConsultar.BackColor = System.Drawing.SystemColors.Window;
-            this.btConsultar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btConsultar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btConsultar.FlatAppearance.BorderSize = 0;
-            this.btConsultar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btConsultar.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btConsultar.ForeColor = System.Drawing.Color.Black;
-            this.btConsultar.Location = new System.Drawing.Point(594, 17);
-            this.btConsultar.Name = "btConsultar";
-            this.btConsultar.Size = new System.Drawing.Size(84, 27);
-            this.btConsultar.TabIndex = 18;
-            this.btConsultar.Text = "Consultar";
-            this.btConsultar.UseVisualStyleBackColor = false;
-            // 
-            // lbNome
-            // 
-            this.lbNome.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbNome.AutoSize = true;
-            this.lbNome.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbNome.Location = new System.Drawing.Point(118, 24);
-            this.lbNome.Name = "lbNome";
-            this.lbNome.Size = new System.Drawing.Size(34, 13);
-            this.lbNome.TabIndex = 17;
-            this.lbNome.Text = "Nome";
-            // 
             // ListaParceiroView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.ClientSize = new System.Drawing.Size(704, 468);
+            this.ClientSize = new System.Drawing.Size(704, 433);
             this.Controls.Add(this.gpListaItens);
-            this.Controls.Add(this.lbId);
-            this.Controls.Add(this.txNome);
-            this.Controls.Add(this.txId);
-            this.Controls.Add(this.btConsultar);
-            this.Controls.Add(this.lbNome);
             this.Name = "ListaParceiroView";
             this.Text = "ListaParceiro";
             this.gpListaItens.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dgConsultaParceiro)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -328,11 +279,6 @@
 
         private System.Windows.Forms.Button btSelecionarItem;
         private System.Windows.Forms.GroupBox gpListaItens;
-        private System.Windows.Forms.Label lbId;
-        private System.Windows.Forms.TextBox txNome;
-        private System.Windows.Forms.TextBox txId;
-        private System.Windows.Forms.Button btConsultar;
-        private System.Windows.Forms.Label lbNome;
         private System.Windows.Forms.DataGridView dgConsultaParceiro;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn parceiroNegocio;
@@ -344,5 +290,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ativo;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataAtualizacao;
         private System.Windows.Forms.DataGridViewTextBoxColumn tipoDocumento;
+        private System.Windows.Forms.Button btCadastrarFornecedor;
     }
 }

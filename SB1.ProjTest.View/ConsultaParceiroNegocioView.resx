@@ -326,25 +326,25 @@
   <data name="tipoDocumento.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="dgConsultaParceiro.Location" type="System.Drawing.Point, System.Drawing">
+  <data name="dgConsultaP.Location" type="System.Drawing.Point, System.Drawing">
     <value>16, 60</value>
   </data>
-  <data name="dgConsultaParceiro.Size" type="System.Drawing.Size, System.Drawing">
-    <value>653, 299</value>
+  <data name="dgConsultaP.Size" type="System.Drawing.Size, System.Drawing">
+    <value>655, 299</value>
   </data>
-  <data name="dgConsultaParceiro.TabIndex" type="System.Int32, mscorlib">
+  <data name="dgConsultaP.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
-  <data name="&gt;&gt;dgConsultaParceiro.Name" xml:space="preserve">
-    <value>dgConsultaParceiro</value>
+  <data name="&gt;&gt;dgConsultaP.Name" xml:space="preserve">
+    <value>dgConsultaP</value>
   </data>
-  <data name="&gt;&gt;dgConsultaParceiro.Type" xml:space="preserve">
+  <data name="&gt;&gt;dgConsultaP.Type" xml:space="preserve">
     <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;dgConsultaParceiro.Parent" xml:space="preserve">
+  <data name="&gt;&gt;dgConsultaP.Parent" xml:space="preserve">
     <value>$this</value>
   </data>
-  <data name="&gt;&gt;dgConsultaParceiro.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;dgConsultaP.ZOrder" xml:space="preserve">
     <value>5</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
@@ -358,7 +358,7 @@
     <value>Popup</value>
   </data>
   <data name="btAbrir.Location" type="System.Drawing.Point, System.Drawing">
-    <value>74, 365</value>
+    <value>75, 365</value>
   </data>
   <data name="btAbrir.Size" type="System.Drawing.Size, System.Drawing">
     <value>83, 30</value>
@@ -391,7 +391,7 @@
     <value>Popup</value>
   </data>
   <data name="btExcluir.Location" type="System.Drawing.Point, System.Drawing">
-    <value>163, 365</value>
+    <value>164, 365</value>
   </data>
   <data name="btExcluir.Size" type="System.Drawing.Size, System.Drawing">
     <value>92, 30</value>
@@ -424,7 +424,7 @@
     <value>Popup</value>
   </data>
   <data name="btImprimir.Location" type="System.Drawing.Point, System.Drawing">
-    <value>613, 365</value>
+    <value>616, 365</value>
   </data>
   <data name="btImprimir.Size" type="System.Drawing.Size, System.Drawing">
     <value>55, 30</value>
@@ -457,7 +457,7 @@
     <value>Popup</value>
   </data>
   <data name="btConsultar.Location" type="System.Drawing.Point, System.Drawing">
-    <value>595, 12</value>
+    <value>596, 12</value>
   </data>
   <data name="btConsultar.Size" type="System.Drawing.Size, System.Drawing">
     <value>73, 25</value>
@@ -517,7 +517,7 @@
     <value>6, 13</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>686, 412</value>
+    <value>687, 412</value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

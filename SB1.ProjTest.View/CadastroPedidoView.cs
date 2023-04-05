@@ -2,12 +2,8 @@
 using SB1.ProjTest.Model;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Globalization;
 using System.Windows.Forms;
 
 namespace SB1.ProjTest.View
@@ -15,65 +11,149 @@ namespace SB1.ProjTest.View
     public partial class CadastroPedidoView : Form
     {
         //Construtores
+
         #region CadastroPedidoView
+
         public CadastroPedidoView()
         {
             InitializeComponent();
+            PedidoAberto();
         }
+
         #endregion
+
+        public CadastroPedidoView(int id)
+        {
+            InitializeComponent();
+            VerificaStatus(id);
+            Consultar(id);
+        }
+
         //Métodos
+
+        #region Consultar
+
+        private void Consultar(int id)
+        {
+            try
+            {
+                Pedido pedido = PedidoController.Consultar(id);
+
+                ParceiroNegocio parceiro = ParceiroNegocioController.Consultar(pedido.idParceiro);
+
+                ParceiroNegocioController.ConsultarEndereco(pedido.idParceiro, pedido.idEndereco);
+
+                BindingSource bsItem = PedidoController.ConsultaListaItem(pedido.idPedido);
+
+                txIdPedido.Text = pedido.idPedido.ToString();
+
+                cbTipoPedido.DisplayMember = pedido.tipoPedido;
+
+                if (pedido.tipoPedido.Equals("PV"))
+                {
+                    cbTipoPedido.Text = "Pedido de Venda";
+                }
+                else if (pedido.tipoPedido.Equals("PC"))
+                {
+                    cbTipoPedido.Text = "Pedido de Compra";
+                }
+
+                txStatus.Text = pedido.status;
+
+                txIdParceiro.Text = parceiro.id.ToString();
+
+                txParceiro.Text = parceiro.nome;
+
+                DtDataInsercao.Value = Convert.ToDateTime(pedido.dataInsercao);
+
+                DtDataVencimento.Value = Convert.ToDateTime(pedido.dataVencimento);
+
+                txTotal.Text = pedido.totalNota.ToString(CultureInfo.InvariantCulture);
+
+                dgListaItem.DataSource = bsItem;
+            }
+            catch (Exception ex)
+            {
+                string mensagem = "Erro ao consultar o Pedido. Erro: " + ex.Message;
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+
+        #endregion
+
         #region Gravar
+
         private void Gravar()
         {
             try
             {
+                var preco = new TabelaPreco();
+                List<MovimentoEstoque> movimentosEstoque = new List<MovimentoEstoque>();
+                List<ItemPedido> itemPedido = new List<ItemPedido>();
+
+                if (string.IsNullOrEmpty(cbTipoPedido.Text))
+                {
+                    throw new Exception("Selecione o tipo de pedido ");
+                }
+
                 if (string.IsNullOrEmpty(txParceiro.Text))
                 {
-                    throw new Exception("Insira um Cliente/Fornecedor");
+                    throw new Exception("Insira um Cliente/Fornecedor ");
                 }
+
                 if (string.IsNullOrEmpty(cbEndereco.Text))
                 {
-                    throw new Exception("Selecione um Endereço");
+                    throw new Exception("Selecione um Endereço ");
                 }
-                if (string.IsNullOrEmpty(txDataVencimento.Text))
+
+                if (dgListaItem.SelectedRows.Count != 0)
                 {
-                    throw new Exception("Insira uma Data de Vencimento");
+                    throw new Exception("Insira um Item ");
                 }
 
-                Pedido pedido = new Pedido();
+                //Inserindo os valores nas tabelas
+                Pedido pedido = Pedido();
 
-                pedido.idPedido = !string.IsNullOrEmpty(txIdPedido.Text) ? Convert.ToInt32(txIdPedido.Text) : 0;
-
-                pedido.idParceiro = Convert.ToInt32(txIdParceiro.Text);
-
-
-
-                pedido.idEndereco = Convert.ToInt32(txIdEndereco.Text);
-
-                if (cbTipoPedido.Text == "Pedido de Compra")
-                {
-                    pedido.tipoPedido = "PC";
-                }
-                else if (cbTipoPedido.Text == "Pedido de Venda")
-                {
-                    pedido.tipoPedido = "PV";
-                }
-
-                pedido.status = true;
-
-                pedido.dataInsercao = (!txDataInsercao.Text.Equals("  /  /       :")) ? Convert.ToDateTime(txDataInsercao.Text) : DateTime.Now;
-
-                pedido.dataVencimento = Convert.ToString(!txDataVencimento.Text.Equals("  /  /       :"));
-
-                List<ItemPedido> itemPedido = new List<ItemPedido>();
                 foreach (DataGridViewRow linha in dgListaItem.Rows)
                 {
-                    if (!string.IsNullOrEmpty(Convert.ToString(linha.Cells["nome"].Value)))
+                    if (linha.Cells["nome"].Value != null && !string.IsNullOrEmpty(linha.Cells["nome"].Value.ToString()))
                     {
+                        var idItem = Convert.ToInt32(linha.Cells["idItem"].Value);
+                        var estoque = 0;
+                        var quantidadeItemPedido = Convert.ToInt32(linha.Cells["quantidade"].Value);
+                        var movimentoEstoque = Convert.ToInt32(MovimentoEstoqueController.ConsultarEstoque(idItem));
+                        var idMovimento = ItemController.RetornaIdMovimento(idItem);
+                        var unidadesVendidas = MovimentoEstoqueController.ConsultarUnidadesVendidas(idItem);
+                        var precoCusto = TabelaPrecoController.ConsultarPrecoCusto(idItem);
+                        var precoVenda = TabelaPrecoController.ConsultarPrecoVenda(idItem);
+
+                        //Corrigi o estoque conforme o seu status
+                        if (txStatus.Equals("Cancelado"))
+                        {
+                            estoque = movimentoEstoque + quantidadeItemPedido;
+
+                        }
+                       
+                        //movimento o estoque de acordo com o tipo de pedido
+                        if (cbTipoPedido.Text == "Pedido de Compra")
+                        {
+                            estoque = movimentoEstoque + quantidadeItemPedido;
+                        }
+                        else if (cbTipoPedido.Text == "Pedido de Venda")
+                        {
+                            estoque = movimentoEstoque - quantidadeItemPedido;
+
+                            unidadesVendidas = unidadesVendidas + Convert.ToInt32(linha.Cells["quantidade"].Value);
+                        
+                        }
+                        //insere os dados no List ItemPedido
                         itemPedido.Add(new ItemPedido()
                         {
                             //adicionando os campos informados no grid, para os objetos da model
-                            idItemPedido = Convert.ToInt32(linha.Cells["idItemPedido"].Value),
+                            idItem = Convert.ToInt32(linha.Cells["idItem"].Value),
                             idPedido = 0,
                             nome = Convert.ToString(linha.Cells["nome"].Value),
                             quantidade = Convert.ToInt32(linha.Cells["quantidade"].Value),
@@ -82,31 +162,105 @@ namespace SB1.ProjTest.View
                             status = Convert.ToBoolean(linha.Cells["status"].Value),
                             dataInsercao = DateTime.Now,
                         });
+
+                        //calcula os valores de estoque
+                        double totalEstoque = movimentoEstoque * precoCusto;
+                        double totalEstoqueVenda = movimentoEstoque * precoVenda;
+                        double lucro = precoVenda - precoCusto;
+                        movimentosEstoque.Add(new MovimentoEstoque()
+                        {
+                            id = idMovimento,
+                            idItem = idItem,
+                            quantidade = estoque,
+                            totalEstoque = totalEstoque,
+                            totalEstoqueVenda = totalEstoqueVenda,
+                            LucroEstoque = lucro,
+                            dataAtualizacao = DateTime.Now,
+                            dataInsercao = DateTime.Now,
+                            unidadesVendidas = unidadesVendidas
+                        });
                     }
                 }
-
-                if (PedidoController.Gravar(pedido, itemPedido))
+                if (PedidoController.Gravar(pedido, itemPedido) &&
+                    MovimentoEstoqueController.GravarList(movimentosEstoque))
                 {
                     txIdPedido.Text = pedido.idPedido.ToString();
 
-                    string mensagem = "Sucesso ao gravar o Pedido: " + txIdPedido;
+                    string codigo = txIdPedido.Text;
+
+                    string mensagem = "Sucesso ao gravar o Pedido: " + codigo;
                     string titulo = "Sucesso.";
                     MessageBoxButtons botoes = MessageBoxButtons.OK;
                     MessageBoxIcon icone = MessageBoxIcon.Information;
                     MessageBox.Show(mensagem, titulo, botoes, icone);
 
-                    Close();
+                    VerificaStatus(Convert.ToInt32(codigo));
                 }
             }
-
             catch (Exception ex)
             {
                 string mensagem = "Erro ao gravar o Pedido. Erro: " + ex.Message;
                 string titulo = "Erro.";
                 MessageBoxButtons botoes = MessageBoxButtons.OK;
-                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBoxIcon icone = MessageBoxIcon.Warning;
                 MessageBox.Show(mensagem, titulo, botoes, icone);
             }
+        }
+
+        #endregion
+        #region Pedido
+        private Pedido Pedido()
+        {
+            //tirando formatação de moeda do campo
+            string valorFormatado = Convert.ToString(txTotal.Text);
+            double valorSemFormato = double.Parse(valorFormatado, NumberStyles.Currency, new CultureInfo("pt-BR"));
+            double total = valorSemFormato;
+            DateTime dataVence = DtDataVencimento.Value;
+            DateTime dataInser = DtDataInsercao.Value;
+
+            var pedido = new Pedido
+            {
+                tipoPedido = cbTipoPedido.Text == "Pedido de Compra" ? "PC" : "PV",
+                idPedido = !string.IsNullOrEmpty(txIdPedido.Text) ? Convert.ToInt32(txIdPedido.Text) : 0,
+                idParceiro = Convert.ToInt32(txIdParceiro.Text),
+                totalNota = total,
+                status = txStatus.Text,
+                dataInsercao = dataInser,
+                dataVencimento = dataVence
+            };
+            return pedido;
+        }
+        #endregion
+        #region VerificaStatus
+        private void VerificaStatus(int id)
+        {
+            Pedido pedido = PedidoController.Consultar(id);
+
+            var verifificaStatus = pedido.status;
+
+            if (verifificaStatus == "Aberto")
+            {
+                btFinalizarPedido.Enabled = true;
+                btCancelarPedido.Enabled = true;
+            }
+            else if (verifificaStatus == "Atendido")
+            {
+                CancelarEFinalizarPedido();
+            }
+            else if (verifificaStatus.Equals("Cancelado"))
+            {
+                CancelarEFinalizarPedido();
+            }
+
+        }
+        #endregion
+        #region PedidoAberto
+        private void PedidoAberto()
+        {
+            var status = "Aberto";
+            txStatus.Text = status;
+            btFinalizarPedido.Enabled = false;
+            btCancelarPedido.Enabled = false;
         }
         #endregion
         #region AdicionarItem
@@ -114,7 +268,7 @@ namespace SB1.ProjTest.View
         {
             try
             {
-                string codigoItem = txIdItem.Text;
+                string codigoItem = ListaItemView.Exibir();
 
                 if (!string.IsNullOrEmpty(codigoItem))
                 {
@@ -127,24 +281,71 @@ namespace SB1.ProjTest.View
                         ((BindingSource)(dgListaItem.DataSource)).AddNew();
                     }
 
-                    dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["id"].Value = codigoItem;
-                    string nomeItem = ItemController.RetornaItem(Convert.ToInt32(codigoItem));
+                    dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["idItem"].Value = codigoItem;
+                    string nomeItem = ItemController.RetornaIdItem(Convert.ToInt32(codigoItem));
                     dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["nome"].Value = nomeItem;
                     dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["quantidade"].Value = 01;
-                    double precoItem = ItemController.RetornaPreco(Convert.ToInt32(codigoItem));
-                    dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["valorVenda"].Value = precoItem;
-                    dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["valorTotal"].Value = precoItem;
+
+                    //Preco do Item
+                    double precoCusto = TabelaPrecoController.ConsultarPrecoCusto(Convert.ToInt32(codigoItem));
+                    double precoVenda = TabelaPrecoController.ConsultarPrecoVenda(Convert.ToInt32(codigoItem));
+                    dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["valorUnitario"].Value = precoCusto;
+                    dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["valorTotal"].Value = precoVenda;
+                    dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["status"].Value = true;
                 }
             }
             catch (Exception ex)
             {
                 //exception ao dar entrada nas informações
-                string mensagem = "Erro ao adicionar a lista de Item. Erro: " + ex.Message;
+                string mensagem = "Erro ao abrir a lista de Item. Erro: " + ex.Message;
                 string titulo = "Erro.";
                 MessageBoxButtons botoes = MessageBoxButtons.OK;
                 MessageBoxIcon icone = MessageBoxIcon.Error;
                 MessageBox.Show(mensagem, titulo, botoes, icone);
             }
+        }
+        #endregion
+        #region AdicionarItemDg
+        private void AdicionarItemDg(int id)
+        {
+            try
+            {
+
+                //Nome do item
+                string nomeItem = ItemController.RetornaIdItem(Convert.ToInt32(id));
+                dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["nome"].Value = nomeItem;
+
+                //Quantidade
+                dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["quantidade"].Value = 01;
+
+                //Preco do Item
+                double precoCusto = TabelaPrecoController.ConsultarPrecoCusto(Convert.ToInt32(id));
+                double precoVenda = TabelaPrecoController.ConsultarPrecoVenda(Convert.ToInt32(id));
+                dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["valorUnitario"].Value = precoCusto;
+                dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["valorTotal"].Value = precoVenda;
+                dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["status"].Value = true;
+            }
+            catch (Exception ex)
+            {
+                //exception ao dar entrada nas informações
+                string mensagem = "Erro ao abrir a lista de Item. Erro: " + ex.Message;
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
+        #region ColunaTotal
+        private void ColunaTotal()
+        {
+            double total = 0;
+            for (int i = 0; i < dgListaItem.Rows.Count; i++)
+            {
+                total += Convert.ToDouble(dgListaItem.Rows[i].Cells["valorTotal"].Value);
+            }
+
+            txTotal.Text = total.ToString("C", CultureInfo.GetCultureInfo("pt-BR"));
         }
         #endregion
         #region EnderecoParceiro
@@ -152,9 +353,7 @@ namespace SB1.ProjTest.View
         {
             try
             {
-                BindingSource bindingSourceParceiro;
-
-                bindingSourceParceiro = ParceiroNegocioController.ConsultarEndereco(id);
+                BindingSource bindingSourceParceiro = ParceiroNegocioController.ConsultarEndereco(id);
 
                 cbEndereco.Items.Clear();
                 cbEndereco.DataSource = bindingSourceParceiro;
@@ -162,26 +361,144 @@ namespace SB1.ProjTest.View
                 cbEndereco.ValueMember = "idEndereco";
                 txIdEndereco.Text = id.ToString();
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
         #endregion
-        #region Consultar
-        private void Consultar(int id)
+        #region ExcluirItemPedido
+        public void ExcluirItemPedido()
         {
             try
             {
-                Item item = ItemController.Consultar(id);
+                if (dgListaItem.SelectedRows.Count != 0)
+                {
+                    int idItem = Convert.ToInt32(dgListaItem.Rows[dgListaItem.SelectedRows[0].Index].Cells["idItem"].Value);
+                    int idPedido = !string.IsNullOrEmpty(txIdPedido.Text) ? Convert.ToInt32(txIdPedido.Text) : 0;
 
-                //txId.Text = item.id.ToString();
+                    string mensagem = "Tem certeza que deseja excluir o item: " + idItem.ToString();
+                    string titulo = "Aviso";
+                    MessageBoxButtons botoes = MessageBoxButtons.YesNo;
+                    MessageBoxIcon icone = MessageBoxIcon.Warning;
+                    DialogResult resultado = MessageBox.Show(mensagem, titulo, botoes, icone);
 
+                    if (resultado == DialogResult.Yes)
+                    {
+                        if (idItem != 0 && idPedido != 0)
+                        {
+                            ItemPedido itemPedido = PedidoController.ConsultarItemPedido(idItem);
+
+                            PedidoController.ExcluirItemPedido(itemPedido);
+                        }
+
+                        dgListaItem.Rows.RemoveAt(dgListaItem.SelectedRows[0].Index);
+
+                        mensagem = "Sucesso ao excluir o item: " + idItem;
+                        titulo = "Sucesso. ";
+                        botoes = MessageBoxButtons.OK;
+                        icone = MessageBoxIcon.Information;
+                        MessageBox.Show(mensagem, titulo, botoes, icone);
+                    }
+                }
+                else
+                {
+                    string mensagem = "Selecione uma linha no grid";
+                    string titulo = "Aviso. ";
+                    MessageBoxButtons botoes = MessageBoxButtons.OK;
+                    MessageBoxIcon icone = MessageBoxIcon.Warning;
+                    MessageBox.Show(mensagem, titulo, botoes, icone);
+                }
             }
             catch (Exception ex)
             {
-                string mensagem = "Erro ao consultar o Cadastro do Item. Erro: " + ex.Message;
+                string mensagem = "Erro ao excluir o Item. Erro: " + ex.Message;
+                string titulo = "Erro. ";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
+        #region CancelarPedido
+        private void CancelarEFinalizarPedido()
+        {
+            dgListaItem.ReadOnly = true;
+            dgListaItem.Enabled = false;
+
+            cbTipoPedido.Enabled = false;
+            cbEndereco.Enabled = false;
+            btCadastrarItem.Enabled = false;
+            btListaParceiros.Enabled = false;
+            btListaItem.Enabled = false;
+            btEcluirItem.Enabled = false;
+            btCancelarPedido.Enabled = false;
+            btSalvar.Enabled = false;
+
+            btFinalizarPedido.Enabled = false;
+
+            txTotal.Enabled = false;
+            txTotal.ReadOnly = true;
+
+            txIdParceiro.ReadOnly = true;
+            txIdParceiro.Enabled = false;
+
+            txParceiro.ReadOnly = true;
+            txParceiro.Enabled = false;
+
+            txStatus.ReadOnly = true;
+            txStatus.Enabled = false;
+
+            DtDataInsercao.Enabled = false;
+            DtDataVencimento.Enabled = false;
+            
+        }
+        #endregion
+        #region ApenasNumero
+        private void ApenasNumero(object sender, KeyPressEventArgs e)
+        {
+
+            if (!(char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar)))
+            { 
+
+                e.Handled = true;
+                string mensagem = "Este campo aceita apenas números. "; ;
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Warning;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
+        #region NumeroVirgula
+        private void NumeroVirgula(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
+            {
+                e.Handled = true;
+                string mensagem = "Este campo aceita apenas números e virgula."; ;
                 string titulo = "Erro.";
                 MessageBoxButtons botoes = MessageBoxButtons.OK;
                 MessageBoxIcon icone = MessageBoxIcon.Error;
                 MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+            if ((e.KeyChar == ',') && ((sender as System.Windows.Forms.TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+                string mensagem = "Este campo aceita somente uma vírgula."; ;
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
+        #region ApenasLetras
+        private void ApenasLetras(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsLetter(e.KeyChar) && !(e.KeyChar == (char)Keys.Back) && !(e.KeyChar == (char)Keys.Space))
+            {
+                e.Handled = true;
             }
         }
         #endregion
@@ -206,23 +523,6 @@ namespace SB1.ProjTest.View
             }
         }
         #endregion
-        #region cbEndereco_Enter
-        private void cbEndereco_Enter(object sender, EventArgs e)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(txIdParceiro.Text))
-                {
-                    ConsultarEnderecoParceiro(0);
-                }
-                else
-                {
-                    ConsultarEnderecoParceiro(Convert.ToInt32(txIdParceiro.Text));
-                }
-            }
-            catch { }
-        }
-        #endregion
         #region btAdicionarItem_Click
         private void btAdicionarItem_Click(object sender, EventArgs e)
         {
@@ -232,34 +532,101 @@ namespace SB1.ProjTest.View
         #region btListaItem_Click
         private void btListaItem_Click(object sender, EventArgs e)
         {
+            AdicionarItem();
+            ColunaTotal();
+        }
+        #endregion
+        #region btSalvar_Click
+        private void btSalvar_Click(object sender, EventArgs e)
+        {
+            Gravar();
+        }
+        #endregion
+        #region dgListaItem_CellEndEdit
+        private void dgListaItem_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {   
+            if (e.ColumnIndex == dgListaItem.Rows[0].Cells["idItem"].ColumnIndex) 
+            {
+                DataGridViewCell idItemCell = dgListaItem.CurrentRow.Cells["idItem"];
+
+                // Obtém o valor da célula "idItem"
+                object valor = idItemCell.Value;
+
+                // Converte o valor para um tipo apropriado, como um int, se necessário
+                int idItem = Convert.ToInt32(valor);
+
+                AdicionarItemDg(idItem);
+            }
+
+            int quantidade = Convert.ToInt32(dgListaItem.Rows[e.RowIndex].Cells["quantidade"].Value);
+            double valorVenda = Convert.ToDouble(dgListaItem.Rows[e.RowIndex].Cells["valorUnitario"].Value);
+
+            dgListaItem.Rows[e.RowIndex].Cells["ValorTotal"].Value = quantidade * valorVenda;
+
+            ColunaTotal();
+        }
+        #endregion
+        #region dgListaItem_CellMouseDoubleClick
+        private void dgListaItem_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            AdicionarItem();
+        }
+        #endregion
+        #region txDataVencimento_KeyPress
+        private void txDataVencimento_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            ApenasNumero(sender, e);
+        }
+        #endregion
+        #region txIdItem_KeyPress
+        private void txIdItem_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            ApenasNumero(sender, e);
+        }
+        #endregion
+        #region dgListaItem_EditingControlShowing
+        private void dgListaItem_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            e.Control.KeyPress += new KeyPressEventHandler(ColumnsInt_KeyPress);
+        }
+        #endregion
+        #region ColumnsInt_KeyPress
+        private void ColumnsInt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsDigit(e.KeyChar) && e.KeyChar != 8)
+            {
+                e.Handled = true;
+            }
+        }
+        #endregion
+        #region btEcluirItem_Click
+        private void btEcluirItem_Click(object sender, EventArgs e)
+        {
+            ExcluirItemPedido();
+        }
+        #endregion
+        #region btCancelarPedido
+        private void btCancelarPedido_Click(object sender, EventArgs e)
+        {
             try
             {
-                string codigoItem = ListaItemView.Exibir();
+                string mensagem = "Deseja realmente cancelar o pedido ? ";
+                string titulo = "Alerta.";
+                MessageBoxButtons botoes = MessageBoxButtons.YesNo;
+                MessageBoxIcon icone = MessageBoxIcon.Question;
+                DialogResult resultado = MessageBox.Show(mensagem, titulo, botoes, icone);
 
-                if (!string.IsNullOrEmpty(codigoItem))
+                if (resultado == DialogResult.Yes)
                 {
-                    if (dgListaItem.DataSource == null)
-                    {
-                        dgListaItem.Rows.Add();
-                    }
-                    else
-                    {
-                        ((BindingSource)(dgListaItem.DataSource)).AddNew();
-                    }
+                    txStatus.Text = "Cancelado";
 
-                    dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["id"].Value = codigoItem;
-                    string nomeItem = ItemController.RetornaItem(Convert.ToInt32(codigoItem));
-                    dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["nome"].Value = nomeItem;
-                    dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["quantidade"].Value = 01;
-                    double precoItem = ItemController.RetornaPreco(Convert.ToInt32(codigoItem));
-                    dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["valorVenda"].Value = precoItem;
-                    dgListaItem.Rows[dgListaItem.Rows.Count - 2].Cells["valorTotal"].Value = precoItem;
+                    Gravar();
                 }
             }
             catch (Exception ex)
             {
                 //exception ao dar entrada nas informações
-                string mensagem = "Erro ao abrir a lista de Item. Erro: " + ex.Message;
+                string mensagem = "Erro ao cancelar o Pedido. Erro: " + ex.Message;
                 string titulo = "Erro.";
                 MessageBoxButtons botoes = MessageBoxButtons.OK;
                 MessageBoxIcon icone = MessageBoxIcon.Error;
@@ -267,27 +634,7 @@ namespace SB1.ProjTest.View
             }
         }
         #endregion
-        #region btCadastrarFornecedor_Click
-        private void btCadastrarFornecedor_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                CadastroParceiroNegocioView cadastroParceiro = new CadastroParceiroNegocioView();
-                cadastroParceiro.StartPosition = FormStartPosition.CenterScreen;
-                cadastroParceiro.Show();
-            }
-            catch (Exception ex)
-            {
-                //exception ao dar entrada nas informações
-                string mensagem = "Erro ao abrir o cadastro de parceiro. Erro: " + ex.Message;
-                string titulo = "Erro.";
-                MessageBoxButtons botoes = MessageBoxButtons.OK;
-                MessageBoxIcon icone = MessageBoxIcon.Error;
-                MessageBox.Show(mensagem, titulo, botoes, icone);
-            }
-        }
-        #endregion
-        #region btListaParceiros_Click
+        #region btListaParceiros
         private void btListaParceiros_Click(object sender, EventArgs e)
         {
             try
@@ -312,10 +659,59 @@ namespace SB1.ProjTest.View
             }
         }
         #endregion
-        #region btSalvar_Click
-        private void btSalvar_Click(object sender, EventArgs e)
+        #region txParceiro
+        private void txParceiro_TextChanged(object sender, EventArgs e)
         {
-            Gravar();
+            try
+            {
+                cbEndereco.Items.Clear();
+
+                if (string.IsNullOrEmpty(txParceiro.Text))
+                {
+                    ConsultarEnderecoParceiro(0);
+                }
+                else
+                {
+                    int idParceiro;
+                    if (int.TryParse(txIdParceiro.Text, out idParceiro))
+                    {
+                        ConsultarEnderecoParceiro(idParceiro);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        #endregion
+        #region btFinalizarPedido
+        private void btFinalizarPedido_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string mensagem = "Deseja realmente finalizar o pedido ? ";
+                string titulo = "Alerta.";
+                MessageBoxButtons botoes = MessageBoxButtons.YesNo;
+                MessageBoxIcon icone = MessageBoxIcon.Question;
+                DialogResult resultado = MessageBox.Show(mensagem, titulo, botoes, icone);
+
+                if (resultado == DialogResult.Yes)
+                {
+                    txStatus.Text = "Atendido";
+
+                    Gravar();
+                }
+            }
+            catch (Exception ex)
+            {
+                //exception ao dar entrada nas informações
+                string mensagem = "Erro ao finalizar o Pedido. Erro: " + ex.Message;
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
         }
         #endregion
     }

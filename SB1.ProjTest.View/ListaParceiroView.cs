@@ -1,12 +1,5 @@
 ﻿using SB1.ProjTest.Controller;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SB1.ProjTest.View
@@ -28,14 +21,15 @@ namespace SB1.ProjTest.View
         {
             try
             {
-                BindingSource bindingSourceListaParceiro;
-
-                bindingSourceListaParceiro = ParceiroNegocioController.ConsultarListaParceiro();
+                BindingSource bindingSourceListaParceiro = ParceiroNegocioController.ConsultarListaParceiro();
 
                 dgConsultaParceiro.DataSource = bindingSourceListaParceiro;
 
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
         #endregion 
         #region Exibir
@@ -54,7 +48,8 @@ namespace SB1.ProjTest.View
         }
         #endregion
         #region Selecionar
-        public void Selecionar()
+
+        private void Selecionar()
         {
             codigoParceiro = Convert.ToString(dgConsultaParceiro.Rows[dgConsultaParceiro.CurrentRow.Index].Cells["id"].Value);
             Close();
@@ -88,6 +83,26 @@ namespace SB1.ProjTest.View
             catch (Exception ex)
             {
                 string mensagem = "Erro ao Selecionar o Parceiro. Erro: " + ex.Message;
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
+        #region btCadastrarFornecedor_Click
+        private void btCadastrarFornecedor_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CadastroParceiroNegocioView cadastroParceiro = new CadastroParceiroNegocioView();
+                cadastroParceiro.StartPosition = FormStartPosition.CenterScreen;
+                cadastroParceiro.Show();
+            }
+            catch (Exception ex)
+            {
+                //exception ao dar entrada nas informações
+                string mensagem = "Erro ao abrir o cadastro de parceiro. Erro: " + ex.Message;
                 string titulo = "Erro.";
                 MessageBoxButtons botoes = MessageBoxButtons.OK;
                 MessageBoxIcon icone = MessageBoxIcon.Error;

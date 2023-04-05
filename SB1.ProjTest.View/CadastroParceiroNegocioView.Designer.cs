@@ -39,9 +39,7 @@
             this.txID = new System.Windows.Forms.TextBox();
             this.lbTipoParceiro = new System.Windows.Forms.Label();
             this.cbParceiro = new System.Windows.Forms.ComboBox();
-            this.txDataInsercao = new System.Windows.Forms.MaskedTextBox();
             this.labDataAtualizacao = new System.Windows.Forms.Label();
-            this.txDataAtualizacao = new System.Windows.Forms.MaskedTextBox();
             this.lbTipoDocumento = new System.Windows.Forms.Label();
             this.dgEndereco = new System.Windows.Forms.DataGridView();
             this.logradouro = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,11 +57,13 @@
             this.txTelefone = new System.Windows.Forms.MaskedTextBox();
             this.btCancelar = new System.Windows.Forms.Button();
             this.gpEndereco = new System.Windows.Forms.GroupBox();
+            this.btCadastrar = new System.Windows.Forms.Button();
             this.btExcluirEndereco = new System.Windows.Forms.Button();
+            this.btImprimir = new System.Windows.Forms.Button();
             this.txNome = new System.Windows.Forms.MaskedTextBox();
             this.txEmail = new System.Windows.Forms.TextBox();
-            this.btImprimir = new System.Windows.Forms.Button();
-            this.btCadastrar = new System.Windows.Forms.Button();
+            this.dtDataInsercao = new System.Windows.Forms.DateTimePicker();
+            this.dtDataAtualizacao = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.dgEndereco)).BeginInit();
             this.gpEndereco.SuspendLayout();
             this.SuspendLayout();
@@ -95,7 +95,7 @@
             this.labDataInsercao.AutoSize = true;
             this.labDataInsercao.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labDataInsercao.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.labDataInsercao.Location = new System.Drawing.Point(586, 76);
+            this.labDataInsercao.Location = new System.Drawing.Point(614, 76);
             this.labDataInsercao.Name = "labDataInsercao";
             this.labDataInsercao.Size = new System.Drawing.Size(73, 13);
             this.labDataInsercao.TabIndex = 7;
@@ -160,39 +160,15 @@
             this.cbParceiro.Size = new System.Drawing.Size(320, 21);
             this.cbParceiro.TabIndex = 1;
             // 
-            // txDataInsercao
-            // 
-            this.txDataInsercao.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.txDataInsercao.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txDataInsercao.Location = new System.Drawing.Point(663, 72);
-            this.txDataInsercao.Mask = "00/00/0000 90:00";
-            this.txDataInsercao.Name = "txDataInsercao";
-            this.txDataInsercao.ReadOnly = true;
-            this.txDataInsercao.Size = new System.Drawing.Size(123, 21);
-            this.txDataInsercao.TabIndex = 25;
-            this.txDataInsercao.ValidatingType = typeof(System.DateTime);
-            // 
             // labDataAtualizacao
             // 
             this.labDataAtualizacao.AutoSize = true;
             this.labDataAtualizacao.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labDataAtualizacao.Location = new System.Drawing.Point(577, 99);
+            this.labDataAtualizacao.Location = new System.Drawing.Point(604, 99);
             this.labDataAtualizacao.Name = "labDataAtualizacao";
             this.labDataAtualizacao.Size = new System.Drawing.Size(83, 13);
             this.labDataAtualizacao.TabIndex = 26;
             this.labDataAtualizacao.Text = "Data aualização";
-            // 
-            // txDataAtualizacao
-            // 
-            this.txDataAtualizacao.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.txDataAtualizacao.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txDataAtualizacao.Location = new System.Drawing.Point(663, 94);
-            this.txDataAtualizacao.Mask = "00/00/0000 90:00";
-            this.txDataAtualizacao.Name = "txDataAtualizacao";
-            this.txDataAtualizacao.ReadOnly = true;
-            this.txDataAtualizacao.Size = new System.Drawing.Size(123, 21);
-            this.txDataAtualizacao.TabIndex = 27;
-            this.txDataAtualizacao.ValidatingType = typeof(System.DateTime);
             // 
             // lbTipoDocumento
             // 
@@ -227,7 +203,7 @@
             this.dgEndereco.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgEndereco.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.dgEndereco.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.Color.White;
-            this.dgEndereco.Size = new System.Drawing.Size(770, 293);
+            this.dgEndereco.Size = new System.Drawing.Size(770, 210);
             this.dgEndereco.TabIndex = 7;
             // 
             // logradouro
@@ -342,7 +318,7 @@
             this.btCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btCancelar.FlatAppearance.BorderSize = 0;
             this.btCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btCancelar.Location = new System.Drawing.Point(585, 474);
+            this.btCancelar.Location = new System.Drawing.Point(575, 233);
             this.btCancelar.Name = "btCancelar";
             this.btCancelar.Size = new System.Drawing.Size(63, 24);
             this.btCancelar.TabIndex = 9;
@@ -353,15 +329,36 @@
             // gpEndereco
             // 
             this.gpEndereco.BackColor = System.Drawing.SystemColors.Window;
+            this.gpEndereco.Controls.Add(this.btCadastrar);
             this.gpEndereco.Controls.Add(this.btExcluirEndereco);
+            this.gpEndereco.Controls.Add(this.btImprimir);
             this.gpEndereco.Controls.Add(this.dgEndereco);
+            this.gpEndereco.Controls.Add(this.btCancelar);
             this.gpEndereco.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.gpEndereco.Location = new System.Drawing.Point(10, 119);
+            this.gpEndereco.Location = new System.Drawing.Point(10, 127);
             this.gpEndereco.Name = "gpEndereco";
-            this.gpEndereco.Size = new System.Drawing.Size(785, 349);
+            this.gpEndereco.Size = new System.Drawing.Size(785, 268);
             this.gpEndereco.TabIndex = 39;
             this.gpEndereco.TabStop = false;
             this.gpEndereco.Text = "Endereço";
+            // 
+            // btCadastrar
+            // 
+            this.btCadastrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btCadastrar.BackColor = System.Drawing.SystemColors.Window;
+            this.btCadastrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btCadastrar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btCadastrar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btCadastrar.FlatAppearance.BorderSize = 0;
+            this.btCadastrar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btCadastrar.ForeColor = System.Drawing.Color.Black;
+            this.btCadastrar.Location = new System.Drawing.Point(644, 233);
+            this.btCadastrar.Name = "btCadastrar";
+            this.btCadastrar.Size = new System.Drawing.Size(63, 24);
+            this.btCadastrar.TabIndex = 8;
+            this.btCadastrar.Text = "Gravar";
+            this.btCadastrar.UseVisualStyleBackColor = false;
+            this.btCadastrar.Click += new System.EventHandler(this.btCadastrar_Click);
             // 
             // btExcluirEndereco
             // 
@@ -370,13 +367,31 @@
             this.btExcluirEndereco.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btExcluirEndereco.FlatAppearance.BorderSize = 0;
             this.btExcluirEndereco.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btExcluirEndereco.Location = new System.Drawing.Point(7, 316);
+            this.btExcluirEndereco.Location = new System.Drawing.Point(7, 233);
             this.btExcluirEndereco.Name = "btExcluirEndereco";
             this.btExcluirEndereco.Size = new System.Drawing.Size(66, 27);
             this.btExcluirEndereco.TabIndex = 11;
             this.btExcluirEndereco.Text = "Excluir";
             this.btExcluirEndereco.UseVisualStyleBackColor = false;
             this.btExcluirEndereco.Click += new System.EventHandler(this.btExcluirEndereco_Click);
+            // 
+            // btImprimir
+            // 
+            this.btImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btImprimir.BackColor = System.Drawing.SystemColors.Window;
+            this.btImprimir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btImprimir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btImprimir.FlatAppearance.BorderSize = 0;
+            this.btImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btImprimir.ForeColor = System.Drawing.Color.Black;
+            this.btImprimir.Location = new System.Drawing.Point(713, 233);
+            this.btImprimir.Name = "btImprimir";
+            this.btImprimir.Size = new System.Drawing.Size(63, 24);
+            this.btImprimir.TabIndex = 10;
+            this.btImprimir.Text = "Imprimir";
+            this.btImprimir.UseVisualStyleBackColor = false;
+            this.btImprimir.Click += new System.EventHandler(this.btImprimir_Click);
             // 
             // txNome
             // 
@@ -397,41 +412,23 @@
             this.txEmail.Size = new System.Drawing.Size(197, 21);
             this.txEmail.TabIndex = 6;
             // 
-            // btImprimir
+            // dtDataInsercao
             // 
-            this.btImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btImprimir.BackColor = System.Drawing.SystemColors.Window;
-            this.btImprimir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btImprimir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btImprimir.FlatAppearance.BorderSize = 0;
-            this.btImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btImprimir.ForeColor = System.Drawing.Color.Black;
-            this.btImprimir.Location = new System.Drawing.Point(723, 474);
-            this.btImprimir.Name = "btImprimir";
-            this.btImprimir.Size = new System.Drawing.Size(63, 24);
-            this.btImprimir.TabIndex = 10;
-            this.btImprimir.Text = "Imprimir";
-            this.btImprimir.UseVisualStyleBackColor = false;
-            this.btImprimir.Click += new System.EventHandler(this.btImprimir_Click);
+            this.dtDataInsercao.Enabled = false;
+            this.dtDataInsercao.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtDataInsercao.Location = new System.Drawing.Point(691, 72);
+            this.dtDataInsercao.Name = "dtDataInsercao";
+            this.dtDataInsercao.Size = new System.Drawing.Size(95, 21);
+            this.dtDataInsercao.TabIndex = 40;
             // 
-            // btCadastrar
+            // dtDataAtualizacao
             // 
-            this.btCadastrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btCadastrar.BackColor = System.Drawing.SystemColors.Window;
-            this.btCadastrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btCadastrar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btCadastrar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btCadastrar.FlatAppearance.BorderSize = 0;
-            this.btCadastrar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btCadastrar.ForeColor = System.Drawing.Color.Black;
-            this.btCadastrar.Location = new System.Drawing.Point(654, 474);
-            this.btCadastrar.Name = "btCadastrar";
-            this.btCadastrar.Size = new System.Drawing.Size(63, 24);
-            this.btCadastrar.TabIndex = 8;
-            this.btCadastrar.Text = "Gravar";
-            this.btCadastrar.UseVisualStyleBackColor = false;
-            this.btCadastrar.Click += new System.EventHandler(this.btCadastrar_Click);
+            this.dtDataAtualizacao.Enabled = false;
+            this.dtDataAtualizacao.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dtDataAtualizacao.Location = new System.Drawing.Point(691, 96);
+            this.dtDataAtualizacao.Name = "dtDataAtualizacao";
+            this.dtDataAtualizacao.Size = new System.Drawing.Size(96, 21);
+            this.dtDataAtualizacao.TabIndex = 12;
             // 
             // CadastroParceiroNegocioView
             // 
@@ -439,18 +436,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(805, 510);
-            this.Controls.Add(this.btCadastrar);
-            this.Controls.Add(this.btImprimir);
+            this.ClientSize = new System.Drawing.Size(805, 409);
+            this.Controls.Add(this.dtDataAtualizacao);
+            this.Controls.Add(this.dtDataInsercao);
             this.Controls.Add(this.txNome);
             this.Controls.Add(this.gpEndereco);
-            this.Controls.Add(this.btCancelar);
             this.Controls.Add(this.txTelefone);
             this.Controls.Add(this.txDocumento);
             this.Controls.Add(this.lbTipoDocumento);
-            this.Controls.Add(this.txDataAtualizacao);
             this.Controls.Add(this.labDataAtualizacao);
-            this.Controls.Add(this.txDataInsercao);
             this.Controls.Add(this.cbParceiro);
             this.Controls.Add(this.lbTipoParceiro);
             this.Controls.Add(this.txID);
@@ -484,9 +478,7 @@
         private System.Windows.Forms.TextBox txID;
         private System.Windows.Forms.Label lbTipoParceiro;
         private System.Windows.Forms.ComboBox cbParceiro;
-        private System.Windows.Forms.MaskedTextBox txDataInsercao;
         private System.Windows.Forms.Label labDataAtualizacao;
-        private System.Windows.Forms.MaskedTextBox txDataAtualizacao;
         private System.Windows.Forms.Label lbTipoDocumento;
         private System.Windows.Forms.DataGridView dgEndereco;
         private System.Windows.Forms.ComboBox cbTipoDocuemento;
@@ -509,5 +501,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataInsercao;
         private System.Windows.Forms.Button btImprimir;
         private System.Windows.Forms.Button btCadastrar;
+        private System.Windows.Forms.DateTimePicker dtDataInsercao;
+        private System.Windows.Forms.DateTimePicker dtDataAtualizacao;
     }
 }

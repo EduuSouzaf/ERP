@@ -36,23 +36,20 @@
             this.lbNome = new System.Windows.Forms.Label();
             this.txNome = new System.Windows.Forms.TextBox();
             this.dgConsultaItem = new System.Windows.Forms.DataGridView();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fornecedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.descricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorCompra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorMinimo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.valorVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataInsercao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ativo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.unidadeMedida = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btConsultar = new System.Windows.Forms.Button();
             this.btImprimir = new System.Windows.Forms.Button();
             this.btExcluir = new System.Windows.Forms.Button();
             this.btAbrir = new System.Windows.Forms.Button();
             this.btCancelar = new System.Windows.Forms.Button();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fornecedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precoCusto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.precoVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalEstoque = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalEstoqueVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgConsultaItem)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,7 +97,6 @@
             // dgConsultaItem
             // 
             this.dgConsultaItem.AllowUserToAddRows = false;
-            this.dgConsultaItem.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             this.dgConsultaItem.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgConsultaItem.BackgroundColor = System.Drawing.SystemColors.ActiveBorder;
@@ -111,120 +107,21 @@
             this.fornecedor,
             this.quantidade,
             this.categoria,
-            this.descricao,
-            this.valorCompra,
-            this.valorMinimo,
-            this.valorVenda,
-            this.dataInsercao,
-            this.ativo,
-            this.unidadeMedida});
+            this.precoCusto,
+            this.precoVenda,
+            this.totalEstoque,
+            this.totalEstoqueVenda});
             this.dgConsultaItem.Location = new System.Drawing.Point(11, 55);
             this.dgConsultaItem.Name = "dgConsultaItem";
-            this.dgConsultaItem.ReadOnly = true;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ControlLight;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.dgConsultaItem.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgConsultaItem.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgConsultaItem.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.dgConsultaItem.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.Window;
-            this.dgConsultaItem.Size = new System.Drawing.Size(669, 253);
+            this.dgConsultaItem.Size = new System.Drawing.Size(669, 372);
             this.dgConsultaItem.TabIndex = 17;
-            this.dgConsultaItem.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgConsultaItem_CellContentClick);
-            // 
-            // id
-            // 
-            this.id.DataPropertyName = "id";
-            this.id.HeaderText = "Id";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.Width = 63;
-            // 
-            // nome
-            // 
-            this.nome.DataPropertyName = "nome";
-            this.nome.HeaderText = "Nome";
-            this.nome.Name = "nome";
-            this.nome.ReadOnly = true;
-            this.nome.Width = 151;
-            // 
-            // fornecedor
-            // 
-            this.fornecedor.DataPropertyName = "fornecedor";
-            this.fornecedor.HeaderText = "Fornecedor";
-            this.fornecedor.Name = "fornecedor";
-            this.fornecedor.ReadOnly = true;
-            this.fornecedor.Visible = false;
-            // 
-            // quantidade
-            // 
-            this.quantidade.DataPropertyName = "quantidade";
-            this.quantidade.HeaderText = "Quantidade";
-            this.quantidade.Name = "quantidade";
-            this.quantidade.ReadOnly = true;
-            this.quantidade.Visible = false;
-            // 
-            // categoria
-            // 
-            this.categoria.DataPropertyName = "categoria";
-            this.categoria.HeaderText = "Categoria";
-            this.categoria.Name = "categoria";
-            this.categoria.ReadOnly = true;
-            // 
-            // descricao
-            // 
-            this.descricao.DataPropertyName = "descricao";
-            this.descricao.HeaderText = "Descrição";
-            this.descricao.Name = "descricao";
-            this.descricao.ReadOnly = true;
-            this.descricao.Width = 110;
-            // 
-            // valorCompra
-            // 
-            this.valorCompra.DataPropertyName = "valorCompra";
-            this.valorCompra.HeaderText = "Valor de Compra";
-            this.valorCompra.Name = "valorCompra";
-            this.valorCompra.ReadOnly = true;
-            // 
-            // valorMinimo
-            // 
-            this.valorMinimo.DataPropertyName = "valorMinimo";
-            this.valorMinimo.HeaderText = "Valor Mínimo";
-            this.valorMinimo.Name = "valorMinimo";
-            this.valorMinimo.ReadOnly = true;
-            this.valorMinimo.Visible = false;
-            this.valorMinimo.Width = 103;
-            // 
-            // valorVenda
-            // 
-            this.valorVenda.DataPropertyName = "valorVenda";
-            this.valorVenda.HeaderText = "Valor de Venda";
-            this.valorVenda.Name = "valorVenda";
-            this.valorVenda.ReadOnly = true;
-            this.valorVenda.Width = 104;
-            // 
-            // dataInsercao
-            // 
-            this.dataInsercao.DataPropertyName = "dataInsercao";
-            this.dataInsercao.HeaderText = "Data de Inserção";
-            this.dataInsercao.Name = "dataInsercao";
-            this.dataInsercao.ReadOnly = true;
-            this.dataInsercao.Visible = false;
-            // 
-            // ativo
-            // 
-            this.ativo.DataPropertyName = "ativo";
-            this.ativo.HeaderText = "Ativo";
-            this.ativo.Name = "ativo";
-            this.ativo.ReadOnly = true;
-            this.ativo.Visible = false;
-            // 
-            // unidadeMedida
-            // 
-            this.unidadeMedida.DataPropertyName = "unidadeMedida";
-            this.unidadeMedida.HeaderText = "Unidade de Medida";
-            this.unidadeMedida.Name = "unidadeMedida";
-            this.unidadeMedida.ReadOnly = true;
-            this.unidadeMedida.Visible = false;
+            this.dgConsultaItem.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgConsultaItem_CellMouseDoubleClick);
             // 
             // btConsultar
             // 
@@ -252,7 +149,7 @@
             this.btImprimir.FlatAppearance.BorderSize = 0;
             this.btImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btImprimir.ForeColor = System.Drawing.Color.Black;
-            this.btImprimir.Location = new System.Drawing.Point(619, 314);
+            this.btImprimir.Location = new System.Drawing.Point(619, 434);
             this.btImprimir.Name = "btImprimir";
             this.btImprimir.Size = new System.Drawing.Size(61, 28);
             this.btImprimir.TabIndex = 17;
@@ -269,7 +166,7 @@
             this.btExcluir.FlatAppearance.BorderSize = 0;
             this.btExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btExcluir.ForeColor = System.Drawing.Color.Black;
-            this.btExcluir.Location = new System.Drawing.Point(169, 313);
+            this.btExcluir.Location = new System.Drawing.Point(169, 433);
             this.btExcluir.Name = "btExcluir";
             this.btExcluir.Size = new System.Drawing.Size(61, 28);
             this.btExcluir.TabIndex = 16;
@@ -286,7 +183,7 @@
             this.btAbrir.FlatAppearance.BorderSize = 0;
             this.btAbrir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btAbrir.ForeColor = System.Drawing.Color.Black;
-            this.btAbrir.Location = new System.Drawing.Point(78, 313);
+            this.btAbrir.Location = new System.Drawing.Point(78, 433);
             this.btAbrir.Name = "btAbrir";
             this.btAbrir.Size = new System.Drawing.Size(85, 28);
             this.btAbrir.TabIndex = 15;
@@ -301,7 +198,7 @@
             this.btCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btCancelar.FlatAppearance.BorderSize = 0;
             this.btCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btCancelar.Location = new System.Drawing.Point(11, 314);
+            this.btCancelar.Location = new System.Drawing.Point(11, 434);
             this.btCancelar.Name = "btCancelar";
             this.btCancelar.Size = new System.Drawing.Size(61, 28);
             this.btCancelar.TabIndex = 14;
@@ -309,13 +206,74 @@
             this.btCancelar.UseVisualStyleBackColor = false;
             this.btCancelar.Click += new System.EventHandler(this.btCancelar_Click);
             // 
+            // id
+            // 
+            this.id.DataPropertyName = "id";
+            this.id.HeaderText = "Id";
+            this.id.Name = "id";
+            this.id.Width = 63;
+            // 
+            // nome
+            // 
+            this.nome.DataPropertyName = "nome";
+            this.nome.HeaderText = "Nome";
+            this.nome.Name = "nome";
+            this.nome.Width = 161;
+            // 
+            // fornecedor
+            // 
+            this.fornecedor.DataPropertyName = "fornecedor";
+            this.fornecedor.HeaderText = "Fornecedor";
+            this.fornecedor.Name = "fornecedor";
+            this.fornecedor.Visible = false;
+            // 
+            // quantidade
+            // 
+            this.quantidade.DataPropertyName = "quantidade";
+            this.quantidade.HeaderText = "Quantidade";
+            this.quantidade.Name = "quantidade";
+            this.quantidade.Width = 98;
+            // 
+            // categoria
+            // 
+            this.categoria.DataPropertyName = "categoria";
+            this.categoria.HeaderText = "Categoria";
+            this.categoria.Name = "categoria";
+            // 
+            // precoCusto
+            // 
+            this.precoCusto.DataPropertyName = "precoCusto";
+            this.precoCusto.HeaderText = "Preco Custo";
+            this.precoCusto.Name = "precoCusto";
+            this.precoCusto.Visible = false;
+            // 
+            // precoVenda
+            // 
+            this.precoVenda.DataPropertyName = "precoVenda";
+            this.precoVenda.HeaderText = "Preço Venda";
+            this.precoVenda.Name = "precoVenda";
+            this.precoVenda.Width = 104;
+            // 
+            // totalEstoque
+            // 
+            this.totalEstoque.DataPropertyName = "totalEstoque";
+            this.totalEstoque.HeaderText = "Total";
+            this.totalEstoque.Name = "totalEstoque";
+            // 
+            // totalEstoqueVenda
+            // 
+            this.totalEstoqueVenda.DataPropertyName = "totalEstoqueVenda";
+            this.totalEstoqueVenda.HeaderText = "Total Estoque Venda";
+            this.totalEstoqueVenda.Name = "totalEstoqueVenda";
+            this.totalEstoqueVenda.Visible = false;
+            // 
             // ConsultaItemView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.ClientSize = new System.Drawing.Size(691, 353);
+            this.ClientSize = new System.Drawing.Size(691, 472);
             this.Controls.Add(this.btCancelar);
             this.Controls.Add(this.btAbrir);
             this.Controls.Add(this.btExcluir);
@@ -343,22 +301,19 @@
         private System.Windows.Forms.Label lbNome;
         private System.Windows.Forms.TextBox txNome;
         private System.Windows.Forms.DataGridView dgConsultaItem;
-        private System.Windows.Forms.DataGridViewTextBoxColumn id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn fornecedor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn quantidade;
-        private System.Windows.Forms.DataGridViewTextBoxColumn categoria;
-        private System.Windows.Forms.DataGridViewTextBoxColumn descricao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorCompra;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorMinimo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn valorVenda;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataInsercao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ativo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn unidadeMedida;
         private System.Windows.Forms.Button btConsultar;
         private System.Windows.Forms.Button btImprimir;
         private System.Windows.Forms.Button btExcluir;
         private System.Windows.Forms.Button btAbrir;
         private System.Windows.Forms.Button btCancelar;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nome;
+        private System.Windows.Forms.DataGridViewTextBoxColumn fornecedor;
+        private System.Windows.Forms.DataGridViewTextBoxColumn quantidade;
+        private System.Windows.Forms.DataGridViewTextBoxColumn categoria;
+        private System.Windows.Forms.DataGridViewTextBoxColumn precoCusto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn precoVenda;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalEstoque;
+        private System.Windows.Forms.DataGridViewTextBoxColumn totalEstoqueVenda;
     }
 }

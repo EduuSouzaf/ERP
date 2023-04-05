@@ -1,9 +1,6 @@
 ﻿using SB1.ProjTest.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SB1.ProjTest.Controller
@@ -152,7 +149,7 @@ namespace SB1.ProjTest.Controller
             }
         }
         #endregion
-        #region ConsultarItem
+        #region ConsultarListaParceiro
         public static BindingSource ConsultarListaParceiro()
         {
             var contexto = new Contexto();
@@ -210,7 +207,6 @@ namespace SB1.ProjTest.Controller
             }
         }
         #endregion
-
         #region ExcluirEndereco
         public static bool ExcluirEndereco(Endereco endereco)
         {

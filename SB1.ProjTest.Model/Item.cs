@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SB1.ProjTest.Model
@@ -26,26 +23,11 @@ namespace SB1.ProjTest.Model
         [Column("descricao")]
         public string descricao { get; set; }
 
-        [Column("valorMinimo")]
-        public double valorMinimo { get; set; }
-
-        [Column("valorCompra")]
-        public double valorCompra { get; set; }
-
-        [Column("valorVenda")]
-        public double valorVenda { get; set; }
-
         [Column("fornecedor")]
         public string fornecedor { get; set; }
 
         [Column("dataInsercao")]
         public DateTime dataInsercao { get; set; }
-
-        [Column("quantidade")]
-        public int quantidade { get; set; }
-
-        [Column("custo")]
-        public double custo { get; set; }
 
         [Column("marca")]
         public string marca { get; set; }
@@ -53,8 +35,8 @@ namespace SB1.ProjTest.Model
         [Column("unidadeMedida")]
         public string unidadeMedida { get; set; }
 
-        [Column("categoria")]
-        public string categoria { get; set; }
+        [Column("codCategoria")]
+        public string codCategoria { get; set; }
         #endregion
 
         #region Gravar
@@ -62,8 +44,7 @@ namespace SB1.ProjTest.Model
         public bool Gravar(Contexto contexto)
         {
             try
-            {
-                //fazendo a chamda do meu item na classe "contexto" 
+            { 
                 contexto.Item.Add(this);
                 //se id > 0 modifica, se não adiciona
                 contexto.Entry(this).State = id > 0 ? EntityState.Modified : EntityState.Added; //if ternario
@@ -86,17 +67,39 @@ namespace SB1.ProjTest.Model
             try
             {
                 //instanciando o objeto
-                Item item = new Item();
-
-                //o item, instanciado acima recebe a consulta
-                item = contexto.Item.Where(consultaItem => consultaItem.id == id).FirstOrDefault();
+                Item item = contexto.Item.FirstOrDefault(consultaItem => consultaItem.id == id);
 
                 //retorna a consulta que o item recebeu
                 return item;
             }
             catch (Exception ex)
             {
+                throw new Exception(ex.Message);
+            }
+        }
 
+        public static int ConsultarIdItem(Contexto contexto)
+        {
+            try
+            {
+                var ultimoItem = contexto.Item.OrderByDescending(x => x.id).FirstOrDefault();
+                int proximoId;
+
+                if (ultimoItem == null)
+                {
+                    // não há registros na tabela ainda
+                    // o próximo identificador será 1
+                    proximoId = 1;
+                }
+                else
+                {
+                    proximoId = ultimoItem.id + 1;
+                    // o próximo identificador será o valor do último registro + 1
+                }
+                return proximoId;
+            }
+            catch (Exception ex)
+            {
                 throw new Exception(ex.Message);
             }
         }
@@ -104,7 +107,7 @@ namespace SB1.ProjTest.Model
         //várias consultas
         //int? = int que aceita receber valores nulos
         #region ConsultarLista
-        public static BindingSource ConsultarLista(int? id, String nomePesquisa, Contexto contexto)
+        public static BindingSource ConsultarLista(int? id, string nomePesquisa, Contexto contexto)
         {
             try
             {
@@ -113,11 +116,13 @@ namespace SB1.ProjTest.Model
                 using (contexto)
                 {
                     //a variavel bindingItem recebendo a consulta
-                    var bindingItem = from Item in contexto.Item
-                                          //onde o id do item for igual ao id do parametro
-                                      where (Item.id == id || id == null) &&
-                                            (Item.nome.Contains(nomePesquisa) || string.IsNullOrEmpty(nomePesquisa))
-                                      select Item;
+                    var bindingItem = from item in contexto.Item
+                                      join estoque in contexto.MovimentoEstoque on item.id equals estoque.idItem
+                                      join preco in contexto.TabelaPreco on item.id equals preco.idItem
+                                      join categoria in contexto.Categoria on item.codCategoria equals categoria.codigo
+                                      where (item.id == id || id == null) &&
+                                            (item.nome.Contains(nomePesquisa) || nomePesquisa == null)
+                                      select new { item.id, item.nome, categoria.categoria, preco.precoCusto, preco.precoVenda, estoque.quantidade, estoque.totalEstoque, estoque.totalEstoqueVenda};
 
                     bsItem.DataSource = bindingItem.ToList();
                 }
@@ -130,34 +135,80 @@ namespace SB1.ProjTest.Model
             }
         }
         #endregion
-        #region ConsultarListaItem
-        public static BindingSource ConsultarListaItem(Contexto contexto)
+        #region ConsultarEstoque
+        public static BindingSource ConsultarEstoque(int? id, string nomePesquisa, string categoriaCod, string marcaCod, Contexto contexto)
         {
-            BindingSource bsConsultarListaItem = new BindingSource();
-            using (contexto)
+            try
             {
-                var bindingItem = from Item in contexto.Item
-                                      //  where Item.status == true 
-                                  select Item;
+                //instanciando o objeto de vinculação BindingSource
+                BindingSource bsItem = new BindingSource();
+                using (contexto)
+                {
+                    //a variavel bindingItem recebendo a consulta
+                    var bindingItem = from item in contexto.Item
+                        join estoque in contexto.MovimentoEstoque on item.id equals estoque.idItem
+                        join preco in contexto.TabelaPreco on item.id equals preco.idItem
+                        join categoria in contexto.Categoria on item.codCategoria equals categoria.codigo
+                        join marca in contexto.Marca on item.marca equals marca.codigo
+                        where (item.id == id || id == null) &&
+                              (item.nome.Contains(nomePesquisa) || string.IsNullOrEmpty(nomePesquisa)) &&
+                              (categoria.codigo.Contains(categoriaCod) || string.IsNullOrEmpty(categoriaCod)) &&
+                              (marca.codigo.Contains(marcaCod) || string.IsNullOrEmpty(marcaCod))
+                        select new { item.id, item.nome, categoria.categoria, marca.marca, preco.precoCusto, preco.precoVenda, estoque.unidadesVendidas, estoque.quantidade, estoque.totalEstoque, estoque.totalEstoqueVenda };
 
-                bsConsultarListaItem.DataSource = bindingItem.ToList();
+                    bsItem.DataSource = bindingItem.ToList();
+                }
+                return bsItem;
             }
-            return bsConsultarListaItem;
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
         #endregion
-        #region ConsultaItemPedido
+        #region ConsultaNomeItemPedido
         public static string ConsultaNomeItemPedido(int id, Contexto contexto)
         {
             try
             {
-                //instanciando o objeto
-                //Item item = new Item();
-
                 //o item, instanciado acima recebe a consulta
-                string item = Convert.ToString(contexto.Item.Where(itemPedido => itemPedido.id == id).FirstOrDefault().nome);
+                string item = Convert.ToString(contexto.Item.FirstOrDefault(itemPedido => itemPedido.id == id)?.nome);
 
                 //retorna a consulta que o item recebeu
                 return item;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+        #endregion
+        public static int ConsultaIdItemPedido(int id, Contexto contexto)
+        {
+            try
+            {
+                int item = Convert.ToInt32(contexto.MovimentoEstoque.FirstOrDefault(estoque => estoque.idItem == id)?.id);
+
+                return item;
+                //retorna a consulta que o item recebeu
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+        #region verificaIdItem
+        public static int VerificaIdItem(int id, Contexto contexto)
+        {
+            try
+            {
+                int item = Convert.ToInt32(contexto.Item.FirstOrDefault(verifItem => verifItem.id == id)?.id);
+
+                return item;
+                //retorna a consulta que o item recebeu
             }
             catch (Exception ex)
             {
@@ -175,7 +226,7 @@ namespace SB1.ProjTest.Model
                 //Item item = new Item();
 
                 //o item, instanciado acima recebe a consulta
-                double item = Convert.ToDouble(contexto.Item.Where(valorPedido => valorPedido.id == id).FirstOrDefault().valorVenda);
+                double item = Convert.ToDouble(contexto.Item.FirstOrDefault(valorPedido => valorPedido.id == id));
 
                 //retorna a consulta que o item recebeu
                 return item;

@@ -1,12 +1,5 @@
 ﻿using SB1.ProjTest.Controller;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SB1.ProjTest.View
@@ -20,18 +13,18 @@ namespace SB1.ProjTest.View
         public ListaItemView()
         {
             InitializeComponent();
-            ConsultarLista();
+            ConsultarLista(null, null);
         }
         #endregion
         //Metodos
         #region ConsultarLista
-        public void ConsultarLista()
+        public void ConsultarLista(int? id, string nome)
         {
             try
             {
                 BindingSource bindingSourceListaItem;
 
-                bindingSourceListaItem = ItemController.ConsultarListaItem();
+                bindingSourceListaItem = ItemController.ConsultarLista(id, nome);
 
                 dgListaItens.DataSource = bindingSourceListaItem;
 
@@ -108,30 +101,6 @@ namespace SB1.ProjTest.View
         }
         #endregion
         //Eventos
-        #region btConsultar_Click
-        private void btConsultar_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(txId.Text))
-                {
-                    ConsultarListaItens(0, txNome.Text);
-                }
-                else
-                {
-                    ConsultarListaItens(Convert.ToInt32(txId.Text), null);
-                }
-            }
-            catch (Exception ex)
-            {
-                string mensagem = "Erro ao abrir a consulta. Erro: " + ex.Message;
-                string titulo = "Erro.";
-                MessageBoxButtons botoes = MessageBoxButtons.OK;
-                MessageBoxIcon icone = MessageBoxIcon.Error;
-                MessageBox.Show(mensagem, titulo, botoes, icone);
-            }
-        }
-        #endregion
         #region dgListaItens_CellMouseDoubleClick
         private void dgListaItens_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -163,6 +132,16 @@ namespace SB1.ProjTest.View
                 MessageBoxButtons botoes = MessageBoxButtons.OK;
                 MessageBoxIcon icone = MessageBoxIcon.Error;
                 MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
+        #region dgListaItens_CellFormatting
+        private void dgListaItens_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.ColumnIndex == 3 && e.Value != null)
+            {
+                e.Value = string.Format("{0:C}", e.Value);
+                e.FormattingApplied = true;
             }
         }
         #endregion

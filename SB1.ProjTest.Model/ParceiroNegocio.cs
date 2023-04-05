@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SB1.ProjTest.Model
@@ -54,37 +51,34 @@ namespace SB1.ProjTest.Model
         #endregion
 
         //método de gravação
-        //Passando como parâmetro a minha classe contexto
         #region Gravar
         public bool Gravar(Contexto contexto)
         {
             try
             {
-                //Chamando o meu método Parceiro de negócio na mihna classe contexto, e adicionando ela no banco 
                 contexto.ParceiroNegocio.Add(this);
-                //if ternário, para adicionar ou modificar um Parceiro
-                //Se o id do parceiro for maior que "0" modifica, se não adiciona
+
                 contexto.Entry(this).State = id > 0 ? EntityState.Modified : EntityState.Added;
-                //esta salvando as alterações == ctrl + S 
                 contexto.SaveChanges();
+
                 return true;
             }
             catch (Exception ex)
             {
-                //mensagem de erro
                 throw new Exception(ex.Message);
             }
         }
+
         #endregion
-        #region ConsultarListaParceiro
-        public static BindingSource ConsultarListaParceiro(Contexto contexto)
+    #region ConsultarListaParceiro
+    public static BindingSource ConsultarListaParceiro(Contexto contexto)
         {
             BindingSource bsConsultarListaParceiro = new BindingSource();
             using (contexto)
             {
-                var bindingParceiro = from ParceiroNegocio in contexto.ParceiroNegocio
+                var bindingParceiro = from parceiro in contexto.ParceiroNegocio
                                           //  where Item.status == true 
-                                      select ParceiroNegocio;
+                                      select parceiro;
 
                 bsConsultarListaParceiro.DataSource = bindingParceiro.ToList();
             }
@@ -99,14 +93,7 @@ namespace SB1.ProjTest.Model
             try
             {
                 //instanciando o objeto
-                ParceiroNegocio parceiroNegocio = new ParceiroNegocio();
-
-                Endereco endereco = new Endereco();
-
-                //where = onde
-                // => = onde
-                //onde "id" for igual ao "id" retorna o primeiro id
-                parceiroNegocio = contexto.ParceiroNegocio.Where(parcNegocio => parcNegocio.id == id).FirstOrDefault();
+                ParceiroNegocio parceiroNegocio =  contexto.ParceiroNegocio.FirstOrDefault(parcNegocio => parcNegocio.id == id);
                 //parceiro de negocio esta recebendo uma consulta 
                 return parceiroNegocio;
             }
@@ -117,33 +104,26 @@ namespace SB1.ProjTest.Model
             }
         }
         #endregion
-        //mais de uma consulta
-        //int? = int que aceita o retorno de valores nulos
         #region ConsultarLista
-        public static BindingSource ConsultarLista(int? id, String nomePesquisa, Contexto contexto)
-        //metodo de consultar uma lista de parceiros de negocio e passando como parãmetro duas variaveis e a minha classe Contexto
+        //metodo de consultar uma lista de parceiros de negocio e passando como parãmetro duas variaveis
+        public static BindingSource ConsultarLista(int? id, string nomePesquisa, Contexto contexto)
         {
             try
             {
-                //instanciando o objeto BindingSource, que é um objeto do próprio C#
                 BindingSource bsParceiro = new BindingSource();
 
-                //usando o meu parâmetro contexto
+
                 using (contexto)
                 {
-                    //gerando a consulta
-                    //a minha variavel bindingParceiro está recebendo a minha consulta
-                    var bindingParceiro = from ParceiroNegocio in contexto.ParceiroNegocio
+                    var bindingParceiro = from parceiro in contexto.ParceiroNegocio
                                               //onde ParceiroNegocio "id" for igual ao "id" ou nullo 
-                                          where (ParceiroNegocio.id == id || id == null) &&
-                                                //contains = contém                                 //retorna nulo
-                                                //retorna o nome da pesquisa
-                                                (ParceiroNegocio.nome.Contains(nomePesquisa) || String.IsNullOrEmpty(nomePesquisa))
-                                          select ParceiroNegocio;
-                    //retorna o resultado da consulta em uma lista
+                                          where (parceiro.id == id || id == null) &&
+
+                                                (parceiro.nome.Contains(nomePesquisa) || string.IsNullOrEmpty(nomePesquisa))
+                                          select parceiro;
+
                     bsParceiro.DataSource = bindingParceiro.ToList();
                 }
-                //aqui está retornando o resultado da consulta no meu objeto bsParceiro
                 return bsParceiro;
             }
             catch (Exception ex)
@@ -153,7 +133,7 @@ namespace SB1.ProjTest.Model
             }
         }
         #endregion
-        #region ConsultaItemPedido
+        #region ConsultaNomeParceiro
         public static string ConsultaNomeParceiro(int id, Contexto contexto)
         {
             try
@@ -162,7 +142,7 @@ namespace SB1.ProjTest.Model
                 //Item item = new Item();
 
                 //o item, instanciado acima recebe a consulta
-                string parceiroNegocio = Convert.ToString(contexto.ParceiroNegocio.Where(parceiroPedido => parceiroPedido.id == id).FirstOrDefault().nome);
+                string parceiroNegocio = Convert.ToString(contexto.ParceiroNegocio.FirstOrDefault(parceiroPedido => parceiroPedido.id == id)?.nome);
 
                 //retorna a consulta que o item recebeu
                 return parceiroNegocio;

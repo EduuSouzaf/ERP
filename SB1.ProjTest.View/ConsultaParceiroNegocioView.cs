@@ -2,7 +2,6 @@
 using SB1.ProjTest.Model;
 using SB1.ProjTest.Relatorio;
 using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace SB1.ProjTest.View
@@ -35,11 +34,11 @@ namespace SB1.ProjTest.View
                 }
                 if (bindingSourceParceiro.Count != 0)
                 {
-                    dgConsultaParceiro.DataSource = bindingSourceParceiro;
+                    dgConsultaP.DataSource = bindingSourceParceiro;
                 }
                 else
                 {
-                    dgConsultaParceiro.Rows.Clear();
+                    dgConsultaP.Rows.Clear();
                 }
             }
             catch (Exception ex)
@@ -61,10 +60,13 @@ namespace SB1.ProjTest.View
 
                 bindingSourceListaParceiro = ParceiroNegocioController.ConsultarListaParceiro();
 
-                dgConsultaParceiro.DataSource = bindingSourceListaParceiro;
+                dgConsultaP.DataSource = bindingSourceListaParceiro;
 
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
         #endregion
         #region AbrirCadastro
@@ -72,14 +74,14 @@ namespace SB1.ProjTest.View
         {
             try
             {
-                int id = Convert.ToInt32(dgConsultaParceiro.Rows[dgConsultaParceiro.CurrentRow.Index].Cells["id"].Value);
+                int id = Convert.ToInt32(dgConsultaP.Rows[dgConsultaP.CurrentRow.Index].Cells["id"].Value);
 
                 CadastroParceiroNegocioView cadastrarParceiroNegocio = new CadastroParceiroNegocioView(id);
 
                 //centraliza a tela quando ela é executada
                 cadastrarParceiroNegocio.StartPosition = FormStartPosition.CenterScreen;
                 cadastrarParceiroNegocio.Show();
-                Close();
+                //Close();
             }
             catch (Exception ex)
             {
@@ -97,36 +99,57 @@ namespace SB1.ProjTest.View
         {
             try
             {
-                if (dgConsultaParceiro.CurrentRow != null)
+                if (dgConsultaP.CurrentRow != null)
                 {
-                    int id = Convert.ToInt32(dgConsultaParceiro.Rows[dgConsultaParceiro.CurrentRow.Index].Cells["id"].Value);
-                    string nome = Convert.ToString(dgConsultaParceiro.Rows[dgConsultaParceiro.CurrentRow.Index].Cells["nome"].Value);
+                    int id = Convert.ToInt32(dgConsultaP.Rows[dgConsultaP.CurrentRow.Index].Cells["id"].Value);
+                    string nome = Convert.ToString(dgConsultaP.Rows[dgConsultaP.CurrentRow.Index].Cells["nome"].Value);
 
+                    //Verifica se o usuario deseja excluir o cadastro
                     string mensagem = "Tem certeza que deseja excluir o Parceiro de Negócio " + id.ToString() + " - " + nome;
                     string titulo = "Aviso.";
                     MessageBoxButtons botoes = MessageBoxButtons.YesNo;
                     MessageBoxIcon icone = MessageBoxIcon.Warning;
                     DialogResult resultado = MessageBox.Show(mensagem, titulo, botoes, icone);
 
+                    Pedido pedido = PedidoController.ConsultarParceiro(id);
+
+                    int pedidoParceiro = 0;
+
+                    if (pedido != null)
+                    {
+                        pedidoParceiro = Convert.ToInt32(pedido.idParceiro);
+                    }
+
                     if (resultado == DialogResult.Yes)
                     {
-                        ParceiroNegocio parceiroNegocio = ParceiroNegocioController.Consultar(id);
-                        if (ParceiroNegocioController.Excluir(parceiroNegocio))
+                        if (pedidoParceiro == 0)
                         {
-                            mensagem = "Parceiro de Negócio " + id.ToString() + " - " + nome + "Ecluído com sucesso";
-                            titulo = "Aviso.";
-                            botoes = MessageBoxButtons.OK;
-                            icone = MessageBoxIcon.Information;
-                            MessageBox.Show(mensagem, titulo, botoes, icone);
+                            ParceiroNegocio parceiroNegocio = ParceiroNegocioController.Consultar(id);
+                            if (ParceiroNegocioController.Excluir(parceiroNegocio))
+                            {
+                                mensagem = "Parceiro de Negócio " + id.ToString() + " - " + nome + " Excluído com sucesso";
+                                titulo = "Aviso.";
+                                botoes = MessageBoxButtons.OK;
+                                icone = MessageBoxIcon.Information;
+                                MessageBox.Show(mensagem, titulo, botoes, icone);
 
-                            if (string.IsNullOrEmpty(txId.Text))
-                            {
-                                Consultar(0, txNome.Text);
+                                if (string.IsNullOrEmpty(txId.Text))
+                                {
+                                    Consultar(0, txNome.Text);
+                                }
+                                else
+                                {
+                                    Consultar(Convert.ToInt32(txId.Text), null);
+                                }
                             }
-                            else
-                            {
-                                Consultar(Convert.ToInt32(txId.Text), null);
-                            }
+                        }
+                        else
+                        {
+                            mensagem = "Não é possível excluir nenhum parceiro que esteja vinculado a um pedido. ";
+                            titulo = "Alert ";
+                            botoes = MessageBoxButtons.OK;
+                            icone = MessageBoxIcon.Stop;
+                            MessageBox.Show(mensagem, titulo, botoes, icone);
                         }
                     }
                 }

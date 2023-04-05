@@ -1,9 +1,5 @@
 ﻿using SB1.ProjTest.Model;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SB1.ProjTest.Controller
@@ -11,11 +7,56 @@ namespace SB1.ProjTest.Controller
     public class ItemController
     {
         // Metodo de gravacao
-        #region Gravar
-        public static bool Gravar(Item item)
+        #region Métodos Públicos
+
+        // Grava um Item com Movimento de Estoque e Tabela de Preço no banco de dados
+        public static bool Gravar(Item item, MovimentoEstoque estoque, TabelaPreco preco)
         {
             var contexto = new Contexto();
-            //"BeginTransaction" método para inserir no banco
+            var transacao = contexto.Database.BeginTransaction(); // Inicia uma transação no banco de dados
+
+            try
+            {
+                using (contexto)
+                {
+                    using (transacao)
+                    {
+                        // Grava o Item no banco de dados
+                        if (item.Gravar(contexto))
+                        {
+                            // Grava o Movimento de Estoque no banco de dados
+                            if (estoque.Gravar(estoque, contexto))
+                            {
+                                // Grava a Tabela de Preço no banco de dados
+                                if (preco.Gravar(preco, contexto))
+                                {
+                                    // Confirma as alterações no banco de dados
+                                    transacao.Commit();
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                // Faz o rollback da transação em caso de erro
+                transacao.Rollback();
+                return false;
+            }
+            catch (Exception ex)
+            {
+                // Faz o rollback da transação e lança uma exceção em caso de erro
+                transacao.Rollback();
+                throw new Exception("Erro ao gravar o Item com Movimento de Estoque e Tabela de Preço: " + ex.Message);
+            }
+        }
+
+        #endregion
+        #region ConsultarIdItem
+        public static int ConsultarIdItem()
+        {
+            var contexto = new Contexto();
+            //variavel recebendo da data base
             var transacao = contexto.Database.BeginTransaction();
 
             try
@@ -24,21 +65,14 @@ namespace SB1.ProjTest.Controller
                 {
                     using (transacao)
                     {
-                        if (item.Gravar(contexto))
-                        {
-                            //fazendo o commit
-                            transacao.Commit();
-                            return true;
-                        }
+                        //retorna a "id" e o contexto
+                        return Item.ConsultarIdItem(contexto);
                     }
                 }
-                //faz o "RollBack"
-                transacao.Rollback();
-                return true;
             }
             catch (Exception ex)
             {
-                transacao.Rollback();
+
                 throw new Exception(ex.Message);
             }
         }
@@ -70,7 +104,7 @@ namespace SB1.ProjTest.Controller
         }
         #endregion
         #region RetornaItem
-        public static string RetornaItem(int id)
+        public static string RetornaIdItem(int id)
         {
             var contexto = new Contexto();
             //variavel recebendo da data base
@@ -84,6 +118,56 @@ namespace SB1.ProjTest.Controller
                     {
                         //retorna a "id" e o contexto
                         return Item.ConsultaNomeItemPedido(id, contexto);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+        #endregion
+        #region RetornaIdItem
+        public static int RetornaIdMovimento(int id)
+        {
+            var contexto = new Contexto();
+            //variavel recebendo da data base
+            var transacao = contexto.Database.BeginTransaction();
+
+            try
+            {
+                using (contexto)
+                {
+                    using (transacao)
+                    {
+                        //retorna a "id" e o contexto
+                        return Item.ConsultaIdItemPedido(id, contexto);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+        #endregion
+        #region verificaIdItem
+        public static int VerificaIdItem(int id)
+        {
+            var contexto = new Contexto();
+            //variavel recebendo da data base
+            var transacao = contexto.Database.BeginTransaction();
+
+            try
+            {
+                using (contexto)
+                {
+                    using (transacao)
+                    {
+                        //retorna a "id" e o contexto
+                        return Item.VerificaIdItem(id, contexto);
                     }
                 }
             }
@@ -142,8 +226,8 @@ namespace SB1.ProjTest.Controller
             }
         }
         #endregion
-        #region ConsultarItem
-        public static BindingSource ConsultarListaItem()
+        #region Consultarlista
+        public static BindingSource ConsultarEstoque(int? id, string nomePesquisa, string categoria, string marca)
         {
             var contexto = new Contexto();
             var transacao = contexto.Database.BeginTransaction();
@@ -154,7 +238,30 @@ namespace SB1.ProjTest.Controller
                 {
                     using (transacao)
                     {
-                        return Item.ConsultarListaItem(contexto);
+                        return Item.ConsultarEstoque(id, nomePesquisa, categoria, marca, contexto);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+        #endregion
+        #region ConsultarItem
+        public static BindingSource ConsultarLista(int? id, string nome)
+        {
+            var contexto = new Contexto();
+            var transacao = contexto.Database.BeginTransaction();
+
+            try
+            {
+                using (contexto)
+                {
+                    using (transacao)
+                    {
+                        return Item.ConsultarLista(id, nome, contexto);
                     }
                 }
             }

@@ -4,8 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SB1.ProjTest.Model
@@ -15,12 +13,15 @@ namespace SB1.ProjTest.Model
     public class ItemPedido
     {
         [Key]
-        [Column("idItemPedido")]
+        [Column(Order = 1)]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int idItemPedido { get; set; }
 
-        [Column("idPedido")]
+        [Column(Order = 0)]
         public int idPedido { get; set; }
+
+        [Column(Order = 2)]
+        public int idItem { get; set; }
 
         [Column("nome")]
         public string nome { get; set; }
@@ -45,16 +46,12 @@ namespace SB1.ProjTest.Model
         {
             try
             {
-                //i se refere a linha do for no list
                 for (int i = 0; i < itemPedido.Count; i++)
                 {
-                    //esta adicionando no objeto endereco da contexto
                     contexto.ItemPedido.Add(itemPedido[i]);
 
-                    //quando o id do endereco no grid for mair que 0, vai atualizar
                     if (itemPedido[i].idItemPedido > 0)
                     {
-                        //está atualizando os dados do objeto endereco
                         contexto.Entry(itemPedido[i]).State = EntityState.Modified;
                         //salvando
                         contexto.SaveChanges();
@@ -62,8 +59,6 @@ namespace SB1.ProjTest.Model
                     else
                     {
                         int maxId = 0;
-                        //estrutura de repetição para a quantidade de endereços que podem ser adicionados
-                        //para isso ele percorre toda a minha list de endereco
                         for (int j = 0; j < itemPedido.Count; j++)
                         {
                             //se for o primeiro a ser adicionado
@@ -81,9 +76,7 @@ namespace SB1.ProjTest.Model
                                 }
                             }
                         }
-                        //o meu idENdereco vai recebere o valor que o maxId recebeu + 1
                         itemPedido[i].idItemPedido = maxId + 1;
-                        //aqui estou adicioanando o endereco
                         contexto.Entry(itemPedido[i]).State = EntityState.Added;
                         contexto.SaveChanges();
                     }
@@ -96,29 +89,43 @@ namespace SB1.ProjTest.Model
             }
         }
         #endregion
-        #region ConsultarLista
-        //método de consulta em lista, passando como parametro um int?, e a classe contexto
-        //public static BindingSource ConsultarLista(int? idPedido, Contexto contexto)
-        //{
-        //    try
-        //    {
-        //        //variavel BindingSource
-        //        BindingSource bdItemPedido = new BindingSource();
-        //        using (contexto)
-        //        //{
-        //        //    //consulta para puxar todos os dados da tabela endereco
-        //        //    var bindingBsItemPedido = from ender in contexto.Endereco
-        //        //                            where ender.idParceiroNegocio == idParceiro
-        //        //                            select ender;
-        //        //    bsEndereco.DataSource = bindingbsEndereco.ToList();
-        //        //    return bsEndereco;
-        //        //}
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception(ex.Message);
-        //    }
-        //}
+        #region Consultar
+        public static ItemPedido Consultar(int idItem, Contexto contexto)
+        {
+            try
+            {
+                ItemPedido itemPedido = contexto.ItemPedido.FirstOrDefault(itemPed => itemPed.idItem == idItem);
+
+                return itemPedido;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+        #endregion
+        #region ConsultarListaItem
+        public static BindingSource ConsultarListaItem(int idPedido, Contexto contexto)
+        {
+            try
+            {
+                BindingSource bsItem = new BindingSource();
+                using (contexto)
+                {
+                    var consultarItem = from item in contexto.ItemPedido
+                                        where (item.idPedido == idPedido)
+                                        select new { item.nome, item.idItem, item.quantidade, item.valorUnitario, item.valorTotal, item.status };
+
+                    bsItem.DataSource = consultarItem.ToList();
+                }
+                return bsItem;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         #endregion
     }
 }

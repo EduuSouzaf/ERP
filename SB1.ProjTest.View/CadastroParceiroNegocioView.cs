@@ -3,15 +3,8 @@ using SB1.ProjTest.Model;
 using SB1.ProjTest.Relatorio;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+using System.Globalization;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace SB1.ProjTest.View
 {
@@ -51,7 +44,7 @@ namespace SB1.ProjTest.View
 
                 if (parceiro.parceiroNegocio.Equals("CL"))
                 {
-                    cbParceiro.Text = "Cleinte";
+                    cbParceiro.Text = "Cliente";
                 }
                 else if (parceiro.parceiroNegocio.Equals("FO"))
                 {
@@ -66,14 +59,28 @@ namespace SB1.ProjTest.View
 
                 txDocumento.Text = parceiro.documento;
 
-                txDataInsercao.Text = parceiro.dataInsercao.ToString();
+                string dataInsercaoString = parceiro.dataInsercao.ToString("dd/MM/yyyy HH:mm:ss");
+                DateTime dataInsercao;
 
-                txDataAtualizacao.Text = parceiro.dataAtualizacao.ToString();
+                if (DateTime.TryParseExact(dataInsercaoString, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dataInsercao))
+                {
+                    dtDataInsercao.Value = dataInsercao;
+                }
 
-                //endereco recebendo id do parceiro selecionando na tela de consulta
+                string dataAtualizacaoString = parceiro.dataAtualizacao.ToString("dd/MM/yyyy HH:mm:ss");
+                DateTime dataAtualizacao;
+
+                if (DateTime.TryParseExact(dataAtualizacaoString, "dd/MM/yyyy HH:mm:ss", CultureInfo.InvariantCulture, DateTimeStyles.None, out dataAtualizacao))
+                {
+                    dtDataAtualizacao.Value = dataAtualizacao;
+                }
+
+
+
                 BindingSource endereco = ParceiroNegocioController.ConsultarLista(id);
-                dgEndereco.DataSource = endereco;
 
+                dgEndereco.DataSource = endereco;
+                
             }
             catch (Exception ex)
             {
@@ -91,6 +98,8 @@ namespace SB1.ProjTest.View
         {
             try
             {
+                ParceiroNegocio parceiroNegocio = new ParceiroNegocio();
+
                 if (string.IsNullOrEmpty(txNome.Text))
                 {
                     throw new Exception("Insira um nome.");
@@ -103,12 +112,6 @@ namespace SB1.ProjTest.View
                 {
                     throw new Exception("Insira um documento");
                 }
-
-                ParceiroNegocio parceiroNegocio = new ParceiroNegocio();
-
-                parceiroNegocio.nome = txNome.Text;
-
-                parceiroNegocio.id = !string.IsNullOrEmpty(txID.Text) ? Convert.ToInt32(txID.Text) : 0;
 
                 if (cbParceiro.Text == "CLIENTE")
                 {
@@ -123,6 +126,12 @@ namespace SB1.ProjTest.View
                     parceiroNegocio.parceiroNegocio = "CF";
                 }
 
+                int id = !string.IsNullOrEmpty(txID.Text) ? Convert.ToInt32(txID.Text) : 0;
+
+                parceiroNegocio.id = id;
+
+                parceiroNegocio.nome = txNome.Text;
+
                 parceiroNegocio.tipoDocumento = cbTipoDocuemento.Text;
 
                 parceiroNegocio.documento = txDocumento.Text;
@@ -131,7 +140,7 @@ namespace SB1.ProjTest.View
 
                 parceiroNegocio.telefone = txTelefone.Text;
 
-                parceiroNegocio.dataInsercao = (!txDataInsercao.Text.Equals("  /  /       :")) ? Convert.ToDateTime(txDataInsercao.Text) : DateTime.Now;
+                parceiroNegocio.dataInsercao = dtDataInsercao.Value;
 
                 parceiroNegocio.dataAtualizacao = DateTime.Now;
 
@@ -148,7 +157,7 @@ namespace SB1.ProjTest.View
                         {
                             //adicionando os campos informados no grid, para os objetos da model
                             idEndereco = Convert.ToInt32(linha.Cells["idEndereco"].Value),
-                            idParceiroNegocio = 0,
+                            idParceiroNegocio = id,
                             logradouro = Convert.ToString(linha.Cells["logradouro"].Value),
                             numero = Convert.ToInt32(linha.Cells["numero"].Value),
                             bairro = Convert.ToString(linha.Cells["bairro"].Value),
@@ -170,8 +179,6 @@ namespace SB1.ProjTest.View
                     MessageBoxButtons botoes = MessageBoxButtons.OK;
                     MessageBoxIcon icone = MessageBoxIcon.Information;
                     MessageBox.Show(mensagem, titulo, botoes, icone);
-
-                    Close();
                 }
             }
 
@@ -215,7 +222,7 @@ namespace SB1.ProjTest.View
         {
             try
             {
-                if (dgEndereco.SelectedRows.Count != null)
+                if (dgEndereco.SelectedRows.Count != 0)
                 {
                     int idEndereco = Convert.ToInt32(dgEndereco.Rows[dgEndereco.SelectedRows[0].Index].Cells["idEndereco"].Value);
                     int idParceiro = !string.IsNullOrEmpty(txID.Text) ? Convert.ToInt32(txID.Text) : 0;
@@ -264,6 +271,36 @@ namespace SB1.ProjTest.View
             }
         }
         #endregion
+        #region ApenasLetras
+        private void ApenasLetras(object sender, KeyPressEventArgs e)
+        {
+            if (!Char.IsLetter(e.KeyChar) && e.KeyChar != (char)Keys.Back && e.KeyChar != (char)Keys.Space)
+            {
+                e.Handled = true;
+                string mensagem = "Este campo aceita apenas letras.";
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Warning;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
+        #region ApenasNumero
+        private void ApenasNumero(object sender, KeyPressEventArgs e)
+        {
+
+            if (!(char.IsDigit(e.KeyChar) || char.IsControl(e.KeyChar)))
+            {
+
+                e.Handled = true;
+                string mensagem = "Este campo aceita apenas números.";
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Warning;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
         //Eventos
         #region cbTipoDocuemento_Leave
         private void cbTipoDocuemento_Leave(object sender, EventArgs e)
@@ -285,21 +322,13 @@ namespace SB1.ProjTest.View
         #region txTelefone_KeyPress
         private void txTelefone_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsDigit(e.KeyChar))
-
-            {
-                e.Handled = true;
-            }
+            ApenasNumero(sender, e);
         }
         #endregion
         #region txDocumento_KeyPress
         private void txDocumento_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsDigit(e.KeyChar))
-
-            {
-                e.Handled = true;
-            }
+            ApenasNumero(sender, e);
         }
         #endregion
         #region btCancelar_Click
@@ -317,10 +346,7 @@ namespace SB1.ProjTest.View
         #region txNome_KeyPress
         private void txNome_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!Char.IsLetter(e.KeyChar) && !(e.KeyChar == (char)Keys.Back) && !(e.KeyChar == (char)Keys.Space))
-            {
-                e.Handled = true;
-            }
+            ApenasLetras(sender, e);
         }
         #endregion
         #region btExit_Click

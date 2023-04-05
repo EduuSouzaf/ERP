@@ -1,30 +1,27 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SB1.ProjTest.View
 {
     public partial class TelaPrincipalView : Form
     {
-        private int childFormNumber = 0;
-
+        private int _childFormNumber;
+        #region TelaPrincipalView
         public TelaPrincipalView()
         {
             InitializeComponent();
         }
+#endregion
+        #region ShowNewForm
         private void ShowNewForm(object sender, EventArgs e)
         {
             Form childForm = new Form();
             childForm.MdiParent = this;
-            childForm.Text = "Window " + childFormNumber++;
+            childForm.Text = "Window " + _childFormNumber++;
             childForm.Show();
         }
+#endregion
+        #region OpenFile
         private void OpenFile(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -35,6 +32,8 @@ namespace SB1.ProjTest.View
                 string FileName = openFileDialog.FileName;
             }
         }
+        #endregion
+        #region SaveAsToolStripMenuItem_Click
         private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFileDialog = new SaveFileDialog();
@@ -45,26 +44,38 @@ namespace SB1.ProjTest.View
                 string FileName = saveFileDialog.FileName;
             }
         }
+#endregion
+        #region ExitToolsStripMenuItem_Click
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+        #endregion
+        #region CascadeToolStripMenuItem_Click
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.Cascade);
         }
+#endregion
+        #region TileVerticalToolStripMenuItem_Click
         private void TileVerticalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.TileVertical);
         }
+#endregion
+        #region TileHorizontalToolStripMenuItem_Click
         private void TileHorizontalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.TileHorizontal);
         }
+#endregion
+        #region ArrangeIconsToolStripMenuItem_Click
         private void ArrangeIconsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.ArrangeIcons);
         }
+#endregion
+        #region CloseAllToolStripMenuItem_Click
         private void CloseAllToolStripMenuItem_Click(object sender, EventArgs e)
         {
             foreach (Form childForm in MdiChildren)
@@ -72,6 +83,8 @@ namespace SB1.ProjTest.View
                 childForm.Close();
             }
         }
+#endregion
+        #region Parceiro de Negócio
         private void parceiroDeNegócioToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -110,6 +123,8 @@ namespace SB1.ProjTest.View
                 MessageBox.Show(mensagem, titulo, botoes, icone);
             }
         }
+        #endregion
+        #region Item
         private void cadastroDeItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -129,7 +144,6 @@ namespace SB1.ProjTest.View
                 MessageBox.Show(mensagem, titulo, botoes, icone);
             }
         }
-
         private void consultaItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -149,13 +163,15 @@ namespace SB1.ProjTest.View
                 MessageBox.Show(mensagem, titulo, botoes, icone);
             }
         }
-
+#endregion
+        #region btExit_Click
         private void btExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
-
-        private void pedidoToolStripMenuItem_Click(object sender, EventArgs e)
+        #endregion
+        #region Pedido
+        private void cadastrarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
@@ -174,5 +190,109 @@ namespace SB1.ProjTest.View
                 MessageBox.Show(mensagem, titulo, botoes, icone);
             }
         }
+        private void consultarPedidoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ConsultaPedidoView consultaPedido = new ConsultaPedidoView();
+                //centraliza a tela quando ela é executada
+                consultaPedido.StartPosition = FormStartPosition.CenterScreen;
+                consultaPedido.Show();
+            }
+            catch (Exception ex)
+            {
+                //exception ao dar entrada nas informações
+                string mensagem = "Erro ao abrir a Consulta de Pedido. Erro: " + ex.Message;
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
+        #region estoque
+        private void estoqueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                EstoqueView estoque = new EstoqueView();
+                //centraliza a tela quando ela é executada
+                estoque.StartPosition = FormStartPosition.CenterScreen;
+                estoque.Show();
+            }
+            catch (Exception ex)
+            {
+                //exception ao dar entrada nas informações
+                string mensagem = "Erro ao abrir o estoque. Erro: " + ex.Message;
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
+        #region Categoria
+        private void cadastroDeCategoriaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CadastroCategoriaView cadastroCategoria = new CadastroCategoriaView();
+                //centraliza a tela quando ela é executada
+                cadastroCategoria.StartPosition = FormStartPosition.CenterScreen;
+                cadastroCategoria.Show();
+            }
+            catch (Exception ex)
+            {
+                //exception ao dar entrada nas informações
+                string mensagem = "Erro ao abrir o cadastro de Categoria. Erro: " + ex.Message;
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
+        #region Unidade de Medida
+        private void cadastrarUnidadeDeMedidaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CadastroUnidadeMedidaView cadastroUnidade = new CadastroUnidadeMedidaView();
+                //centraliza a tela quando ela é executada
+                cadastroUnidade.StartPosition = FormStartPosition.CenterScreen;
+                cadastroUnidade.Show();
+            }
+            catch (Exception ex)
+            {
+                //exception ao dar entrada nas informações
+                string mensagem = "Erro ao abrir o cadastro de Categoria. Erro: " + ex.Message;
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
+        #region Marca
+        private void cadastrarMarcaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CadastroMarcaView cadastroMarca = new CadastroMarcaView();
+                //centraliza a tela quando ela é executada
+                cadastroMarca.StartPosition = FormStartPosition.CenterScreen;
+                cadastroMarca.Show();
+            }
+            catch (Exception ex)
+            {
+                //exception ao dar entrada nas informações
+                string mensagem = "Erro ao abrir o cadastro de Categoria. Erro: " + ex.Message;
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
     }
 }

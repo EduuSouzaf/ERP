@@ -4,8 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SB1.ProjTest.Model
@@ -133,9 +131,7 @@ namespace SB1.ProjTest.Model
         {
             try
             {
-                Endereco endereco = new Endereco();
-
-                endereco = contexto.Endereco.Where(ender => ender.idEndereco == idEndereco && ender.idParceiroNegocio == idParceiro).FirstOrDefault();
+                Endereco endereco = contexto.Endereco.FirstOrDefault(ender => ender.idEndereco == idEndereco && ender.idParceiroNegocio == idParceiro);
 
                 return endereco;
             }

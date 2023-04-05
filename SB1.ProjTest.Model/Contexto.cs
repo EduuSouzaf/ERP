@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.Entity;
 
 namespace SB1.ProjTest.Model
 {
@@ -22,5 +17,14 @@ namespace SB1.ProjTest.Model
 
         public DbSet<Pedido> Pedido { get; set; }
 
+        public DbSet<MovimentoEstoque> MovimentoEstoque { get; set; }
+
+        public DbSet<TabelaPreco> TabelaPreco { get; set; }
+
+        public DbSet<Categoria> Categoria { get; set; }
+
+        public DbSet<UnidadeMedida> UnidadeMedida { get; set; }
+
+        public DbSet<Marca> Marca { get; set; }
     }
 }

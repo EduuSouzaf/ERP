@@ -45,7 +45,7 @@
             this.txId = new System.Windows.Forms.TextBox();
             this.txNome = new System.Windows.Forms.TextBox();
             this.lbNome = new System.Windows.Forms.Label();
-            this.dgConsultaParceiro = new System.Windows.Forms.DataGridView();
+            this.dgConsultaP = new System.Windows.Forms.DataGridView();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.parceiroNegocio = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -61,7 +61,7 @@
             this.btImprimir = new System.Windows.Forms.Button();
             this.btConsultar = new System.Windows.Forms.Button();
             this.btCancelar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgConsultaParceiro)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgConsultaP)).BeginInit();
             this.SuspendLayout();
             // 
             // lbId
@@ -90,18 +90,18 @@
             resources.ApplyResources(this.lbNome, "lbNome");
             this.lbNome.Name = "lbNome";
             // 
-            // dgConsultaParceiro
+            // dgConsultaP
             // 
-            this.dgConsultaParceiro.AllowUserToAddRows = false;
-            this.dgConsultaParceiro.AllowUserToDeleteRows = false;
-            this.dgConsultaParceiro.AllowUserToResizeColumns = false;
-            this.dgConsultaParceiro.AllowUserToResizeRows = false;
+            this.dgConsultaP.AllowUserToAddRows = false;
+            this.dgConsultaP.AllowUserToDeleteRows = false;
+            this.dgConsultaP.AllowUserToResizeColumns = false;
+            this.dgConsultaP.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
-            this.dgConsultaParceiro.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgConsultaP.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -109,9 +109,9 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgConsultaParceiro.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.dgConsultaParceiro.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgConsultaParceiro.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgConsultaP.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgConsultaP.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgConsultaP.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.id,
             this.parceiroNegocio,
             this.nome,
@@ -129,11 +129,11 @@
             dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgConsultaParceiro.DefaultCellStyle = dataGridViewCellStyle10;
-            resources.ApplyResources(this.dgConsultaParceiro, "dgConsultaParceiro");
-            this.dgConsultaParceiro.MultiSelect = false;
-            this.dgConsultaParceiro.Name = "dgConsultaParceiro";
-            this.dgConsultaParceiro.ReadOnly = true;
+            this.dgConsultaP.DefaultCellStyle = dataGridViewCellStyle10;
+            resources.ApplyResources(this.dgConsultaP, "dgConsultaP");
+            this.dgConsultaP.MultiSelect = false;
+            this.dgConsultaP.Name = "dgConsultaP";
+            this.dgConsultaP.ReadOnly = true;
             dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle11.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -141,18 +141,18 @@
             dataGridViewCellStyle11.SelectionBackColor = System.Drawing.SystemColors.ControlLightLight;
             dataGridViewCellStyle11.SelectionForeColor = System.Drawing.SystemColors.Desktop;
             dataGridViewCellStyle11.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgConsultaParceiro.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
+            this.dgConsultaP.RowHeadersDefaultCellStyle = dataGridViewCellStyle11;
             dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.ControlLight;
             dataGridViewCellStyle12.Font = new System.Drawing.Font("MS Reference Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle12.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.dgConsultaParceiro.RowsDefaultCellStyle = dataGridViewCellStyle12;
-            this.dgConsultaParceiro.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dgConsultaParceiro.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.SystemColors.WindowText;
-            this.dgConsultaParceiro.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            this.dgConsultaParceiro.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.Window;
-            this.dgConsultaParceiro.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgConsultaParceiro_CellMouseDoubleClick);
+            this.dgConsultaP.RowsDefaultCellStyle = dataGridViewCellStyle12;
+            this.dgConsultaP.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dgConsultaP.RowTemplate.DefaultCellStyle.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.dgConsultaP.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            this.dgConsultaP.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.Window;
+            this.dgConsultaP.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgConsultaParceiro_CellMouseDoubleClick);
             // 
             // id
             // 
@@ -306,14 +306,14 @@
             this.Controls.Add(this.btAbrir);
             this.Controls.Add(this.btExcluir);
             this.Controls.Add(this.btImprimir);
-            this.Controls.Add(this.dgConsultaParceiro);
+            this.Controls.Add(this.dgConsultaP);
             this.Controls.Add(this.lbNome);
             this.Controls.Add(this.txNome);
             this.Controls.Add(this.txId);
             this.Controls.Add(this.lbId);
             this.MaximizeBox = false;
             this.Name = "ConsultaParceiroNegocioView";
-            ((System.ComponentModel.ISupportInitialize)(this.dgConsultaParceiro)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgConsultaP)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -325,7 +325,7 @@
         private System.Windows.Forms.TextBox txId;
         private System.Windows.Forms.TextBox txNome;
         private System.Windows.Forms.Label lbNome;
-        private System.Windows.Forms.DataGridView dgConsultaParceiro;
+        private System.Windows.Forms.DataGridView dgConsultaP;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn parceiroNegocio;
         private System.Windows.Forms.DataGridViewTextBoxColumn nome;

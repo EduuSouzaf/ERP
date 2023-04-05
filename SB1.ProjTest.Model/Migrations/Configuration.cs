@@ -10,7 +10,6 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "SB1.ProjTest.Model.Contexto";
         }
 
         protected override void Seed(SB1.ProjTest.Model.Contexto context)
