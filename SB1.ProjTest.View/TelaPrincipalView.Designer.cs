@@ -80,14 +80,14 @@
             this.estoqueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
+            this.ctUnidadesVendidas = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.parceiroNegocioTableAdapter1 = new SB1.ProjTest.View.ProgramaEduardoDataSetTableAdapters.ParceiroNegocioTableAdapter();
             this.parceiroNegocioTableAdapter2 = new SB1.ProjTest.View.ProgramaEduardoDataSetTableAdapters.ParceiroNegocioTableAdapter();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.menuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ctUnidadesVendidas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
             // 
             // newToolStripMenuItem
@@ -454,13 +454,24 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
-            this.panel1.Controls.Add(this.chart1);
+            this.panel1.Controls.Add(this.ctUnidadesVendidas);
             this.panel1.Controls.Add(this.pictureBox9);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1387, 712);
             this.panel1.TabIndex = 2;
+            // 
+            // ctUnidadesVendidas
+            // 
+            this.ctUnidadesVendidas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea1.Name = "ChartArea1";
+            this.ctUnidadesVendidas.ChartAreas.Add(chartArea1);
+            this.ctUnidadesVendidas.Location = new System.Drawing.Point(836, 24);
+            this.ctUnidadesVendidas.Name = "ctUnidadesVendidas";
+            this.ctUnidadesVendidas.Size = new System.Drawing.Size(529, 300);
+            this.ctUnidadesVendidas.TabIndex = 4;
+            this.ctUnidadesVendidas.Text = "chart1";
             // 
             // pictureBox9
             // 
@@ -481,16 +492,6 @@
             // 
             this.parceiroNegocioTableAdapter2.ClearBeforeFill = true;
             // 
-            // chart1
-            // 
-            chartArea1.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea1);
-            this.chart1.Location = new System.Drawing.Point(1002, 125);
-            this.chart1.Name = "chart1";
-            this.chart1.Size = new System.Drawing.Size(300, 300);
-            this.chart1.TabIndex = 4;
-            this.chart1.Text = "chart1";
-            // 
             // TelaPrincipalView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -510,8 +511,8 @@
             this.menuStrip.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ctUnidadesVendidas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -569,7 +570,7 @@
         private System.Windows.Forms.ToolStripMenuItem cadastroDeCategoriaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cadastrarUnidadeDeMedidaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cadastrarMarcaToolStripMenuItem;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart ctUnidadesVendidas;
     }
 }
 
