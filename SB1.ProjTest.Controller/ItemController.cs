@@ -1,5 +1,6 @@
 ﻿using SB1.ProjTest.Model;
 using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace SB1.ProjTest.Controller
@@ -73,6 +74,29 @@ namespace SB1.ProjTest.Controller
             catch (Exception ex)
             {
 
+                throw new Exception(ex.Message);
+            }
+        }
+        #endregion
+        #region consultarItem
+        public static List<string> ConsultarItem()
+        {
+            var contexto = new Contexto();
+            //variavel recebendo da data base
+            var transacao = contexto.Database.BeginTransaction();
+            try
+            {
+                using (contexto)
+                {
+                    using (transacao)
+                    {
+                        //retorna a "id" e o contexto
+                        return Item.ConsultarItem(contexto);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
                 throw new Exception(ex.Message);
             }
         }
