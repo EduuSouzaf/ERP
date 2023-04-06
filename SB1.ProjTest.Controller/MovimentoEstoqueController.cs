@@ -172,7 +172,7 @@ namespace SB1.ProjTest.Controller
         }
         #endregion
         #region ConsultaEstoque
-        public static int ConsultarUnidadesVendidas(int? idItem)
+        public static int ConsultarUnidadesVendidas(int idItem)
         {
             var contexto = new Contexto();
             var transacao = contexto.Database.BeginTransaction();
@@ -193,26 +193,6 @@ namespace SB1.ProjTest.Controller
             }
         }
         #endregion
-        public static List<int> ConsultarUnidadesVendidasNome()
-        {
-            var contexto = new Contexto();
-            var transacao = contexto.Database.BeginTransaction();
-
-            try
-            {
-                using (contexto)
-                {
-                    using (transacao)
-                    {
-                        return MovimentoEstoque.ConsultarUnidadesVendidasNome(contexto);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
         #region ConsultarQuantidadeEstoqe
         public static BindingSource ConsultarQuantidadeEstoque(int? id)
         {

@@ -1,11 +1,5 @@
-﻿using SB1.ProjTest.Controller;
-using SB1.ProjTest.Model;
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
+﻿using System;
 using System.Windows.Forms;
-using System.Windows.Forms.DataVisualization.Charting;
 
 namespace SB1.ProjTest.View
 {
@@ -16,7 +10,6 @@ namespace SB1.ProjTest.View
         public TelaPrincipalView()
         {
             InitializeComponent();
-            UnidadeVendidas();
         }
 #endregion
         #region ShowNewForm
@@ -298,35 +291,6 @@ namespace SB1.ProjTest.View
                 MessageBoxButtons botoes = MessageBoxButtons.OK;
                 MessageBoxIcon icone = MessageBoxIcon.Error;
                 MessageBox.Show(mensagem, titulo, botoes, icone);
-            }
-        }
-        #endregion
-        #region UnidadeVendidas
-        public void UnidadeVendidas()
-        {
-            Title title = new Title();
-            title.Font = new Font("Arial", 14, FontStyle.Bold);
-            title.ForeColor = Color.Black;
-            title.Text = "Itens mais vendidos";
-            ctUnidadesVendidas.Titles.Add(title);
-            
-            List<int> unidadesVendidas = MovimentoEstoqueController.ConsultarUnidadesVendidasNome();
-            List<string> itens = ItemController.ConsultarItem();
-            ctUnidadesVendidas.Series.Add("unidades");
-            ctUnidadesVendidas.Series["unidades"].LegendText = "unidades";
-
-            ctUnidadesVendidas.Series["unidades"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
-            ctUnidadesVendidas.Series["unidades"].BorderWidth = 4;
-
-            var unidadesPorItem = unidadesVendidas.Zip(itens, (unidades, item) => new { Unidades = unidades, Item = item })
-                                                  .GroupBy(x => x.Item)
-                                                  .Select(g => new { Item = g.Key, TotalUnidades = g.Sum(x => x.Unidades) });
-
-            var top5Itens = unidadesPorItem.OrderByDescending(x => x.TotalUnidades).Take(5);
-
-            foreach (var item in top5Itens)
-            {
-                ctUnidadesVendidas.Series["unidades"].Points.AddXY(item.Item, item.TotalUnidades);
             }
         }
         #endregion

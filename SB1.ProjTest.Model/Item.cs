@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
@@ -238,21 +237,6 @@ namespace SB1.ProjTest.Model
                 throw new Exception(ex.Message);
             }
         }
-        #endregion
-        #region ConsultarItem
-        public static List<string> ConsultarItem(Contexto contexto)
-        {
-            try
-            {
-                List<string> nomesItens = contexto.Item.Select(item => item.nome).ToList();
-                return nomesItens;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-
         #endregion
         //excluir
         #region Excluir

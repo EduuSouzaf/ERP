@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
@@ -119,7 +118,7 @@ namespace SB1.ProjTest.Model
         }
         #endregion
         #region ConsultarEstoque 
-        public static int ConsultarUnidadesVendidas(int? idItem, Contexto contexto)
+        public static int ConsultarUnidadesVendidas(int idItem, Contexto contexto)
         {
             try
             {
@@ -136,25 +135,7 @@ namespace SB1.ProjTest.Model
             }
         }
         #endregion
-        #region ConsultarUnidadesVendidasNome 
-        public static List<int> ConsultarUnidadesVendidasNome(Contexto contexto)
-        {
-            try
-            {
-                using (contexto)
-                {
-                    var movimentoEstoque = from estoque in contexto.MovimentoEstoque
-                                           select estoque.unidadesVendidas;
 
-                    return movimentoEstoque.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-        }
-        #endregion
         #region ConsultarTotalEstoqueVenda
         public static double ConsultarTotalEstoqueVenda(int id, Contexto contexto)
         {
