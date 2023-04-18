@@ -112,7 +112,6 @@
             // 
             // lbStatus
             // 
-            this.lbStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbStatus.AutoSize = true;
             this.lbStatus.Location = new System.Drawing.Point(450, 23);
             this.lbStatus.Name = "lbStatus";
@@ -122,7 +121,6 @@
             // 
             // txStatus
             // 
-            this.txStatus.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txStatus.Location = new System.Drawing.Point(493, 19);
             this.txStatus.Name = "txStatus";
             this.txStatus.ReadOnly = true;
@@ -163,6 +161,7 @@
             // 
             // labDataAtualizacao
             // 
+            this.labDataAtualizacao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labDataAtualizacao.AutoSize = true;
             this.labDataAtualizacao.Font = new System.Drawing.Font("MS Reference Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labDataAtualizacao.Location = new System.Drawing.Point(805, 21);
@@ -318,7 +317,6 @@
             // 
             // btCadastrarItem
             // 
-            this.btCadastrarItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btCadastrarItem.BackColor = System.Drawing.SystemColors.Window;
             this.btCadastrarItem.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btCadastrarItem.Location = new System.Drawing.Point(105, 19);
@@ -391,7 +389,6 @@
             // 
             // txIdEndereco
             // 
-            this.txIdEndereco.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txIdEndereco.Enabled = false;
             this.txIdEndereco.Location = new System.Drawing.Point(22, 19);
             this.txIdEndereco.Name = "txIdEndereco";
@@ -402,6 +399,7 @@
             // 
             // DtDataVencimento
             // 
+            this.DtDataVencimento.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DtDataVencimento.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.DtDataVencimento.Location = new System.Drawing.Point(882, 19);
             this.DtDataVencimento.Name = "DtDataVencimento";
@@ -423,6 +421,7 @@
             // 
             // DtDataInsercao
             // 
+            this.DtDataInsercao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.DtDataInsercao.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.DtDataInsercao.Location = new System.Drawing.Point(685, 19);
             this.DtDataInsercao.Name = "DtDataInsercao";

@@ -41,6 +41,7 @@
             // 
             // btGravar
             // 
+            this.btGravar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btGravar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btGravar.Location = new System.Drawing.Point(495, 307);
             this.btGravar.Name = "btGravar";
@@ -52,6 +53,9 @@
             // 
             // dgMarca
             // 
+            this.dgMarca.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgMarca.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgMarca.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codigo,

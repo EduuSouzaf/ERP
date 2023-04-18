@@ -2,10 +2,12 @@
 using SB1.ProjTest.Model;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Windows.Media;
 
 namespace SB1.ProjTest.View
 {
@@ -16,7 +18,11 @@ namespace SB1.ProjTest.View
         public TelaPrincipalView()
         {
             InitializeComponent();
+            ctUnidadesVendidas.Series.Clear();
+            ctUnidadesVendidas.Titles.Clear();
             UnidadeVendidas();
+            ctUnidadesVendidas.Invalidate();
+            MaiorLucro();
         }
 #endregion
         #region ShowNewForm
@@ -304,29 +310,94 @@ namespace SB1.ProjTest.View
         #region UnidadeVendidas
         public void UnidadeVendidas()
         {
-            Title title = new Title();
-            title.Font = new Font("Arial", 14, FontStyle.Bold);
-            title.ForeColor = Color.Black;
-            title.Text = "Itens mais vendidos";
-            ctUnidadesVendidas.Titles.Add(title);
-            
-            List<int> unidadesVendidas = MovimentoEstoqueController.ConsultarUnidadesVendidasNome();
-            List<string> itens = ItemController.ConsultarItem();
-            ctUnidadesVendidas.Series.Add("unidades");
-            ctUnidadesVendidas.Series["unidades"].LegendText = "unidades";
-
-            ctUnidadesVendidas.Series["unidades"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
-            ctUnidadesVendidas.Series["unidades"].BorderWidth = 4;
-
-            var unidadesPorItem = unidadesVendidas.Zip(itens, (unidades, item) => new { Unidades = unidades, Item = item })
-                                                  .GroupBy(x => x.Item)
-                                                  .Select(g => new { Item = g.Key, TotalUnidades = g.Sum(x => x.Unidades) });
-
-            var top5Itens = unidadesPorItem.OrderByDescending(x => x.TotalUnidades).Take(5);
-
-            foreach (var item in top5Itens)
+            try
             {
-                ctUnidadesVendidas.Series["unidades"].Points.AddXY(item.Item, item.TotalUnidades);
+                ctUnidadesVendidas.Series.Clear();
+                ctUnidadesVendidas.Titles.Clear();
+
+                Title title = new Title();
+                title.Font = new Font("Arial", 14, FontStyle.Bold);
+                title.ForeColor = Color.FromArgb(223, 20, 84);
+                title.Text = "Itens mais vendidos";
+                ctUnidadesVendidas.Titles.Add(title);
+
+                List<int> unidadesVendidas = MovimentoEstoqueController.ConsultarUnidadesVendidasNome();
+                List<string> itens = ItemController.ConsultarItem();
+                ctUnidadesVendidas.Series.Add("unidades");
+                ctUnidadesVendidas.Series["unidades"].LegendText = "unidades";
+
+                ctUnidadesVendidas.Series["unidades"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
+                ctUnidadesVendidas.Series["unidades"].BorderWidth = 4;
+
+                var unidadesPorItem = unidadesVendidas.Zip(itens, (unidades, item) => new { Unidades = unidades, Item = item })
+                                                      .GroupBy(x => x.Item)
+                                                      .Select(g => new { Item = g.Key, TotalUnidades = g.Sum(x => x.Unidades) });
+
+                var top5Itens = unidadesPorItem.OrderByDescending(x => x.TotalUnidades).Take(5);
+
+                foreach (var item in top5Itens)
+                {
+                    ctUnidadesVendidas.Series["unidades"].Points.AddXY(item.Item, item.TotalUnidades);
+                }
+
+                ctUnidadesVendidas.Update();
+                ctUnidadesVendidas.Invalidate();
+            }
+            catch (Exception ex)
+            {
+                //exception ao dar entrada nas informações
+                string mensagem = "Erro ao abrir o programa. Erro: " + ex.Message;
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
+        #region UnidadeVendidas
+        public void MaiorLucro()
+        {
+            try
+            {
+                ctMaiorLucro.Series.Clear();
+                ctMaiorLucro.Titles.Clear();
+
+                Title title = new Title();
+                title.Font = new Font("Arial", 14, FontStyle.Bold);
+                title.ForeColor = Color.IndianRed;
+                title.Text = "Lucro por Item";
+                ctMaiorLucro.Titles.Add(title);
+
+                List<double> margemLucro = TabelaPrecoController.ConsultarMargemLucro();
+                List<string> itens = ItemController.ConsultarItem();
+                ctMaiorLucro.Series.Add("lucro");
+                ctMaiorLucro.Series["lucro"].LegendText = "lucro";
+                ctMaiorLucro.Series["lucro"].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
+                ctMaiorLucro.Series["lucro"].BorderWidth = 4;
+                ctMaiorLucro.Series["lucro"].Color = Color.IndianRed;
+
+                var lucroPorItem = margemLucro.Zip(itens, (lucro, item) => new { Lucro = lucro, Item = item })
+                                                                  .GroupBy(x => x.Item)
+                                                                  .Select(g => new { Item = g.Key, TotalLucro = g.Sum(x => x.Lucro) });
+
+                var top5Itens = lucroPorItem.OrderByDescending(x => x.TotalLucro).Take(5);
+
+                foreach (var item in top5Itens)
+                {
+                    ctMaiorLucro.Series["lucro"].Points.AddXY(item.Item, item.TotalLucro);
+                }
+
+                ctMaiorLucro.Update();
+                ctMaiorLucro.Invalidate();
+            }
+            catch (Exception ex)
+            {
+                //exception ao dar entrada nas informações
+                string mensagem = "Erro ao abrir o programa. Erro: " + ex.Message;
+                string titulo = "Erro.";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
             }
         }
         #endregion

@@ -264,6 +264,29 @@ namespace SB1.ProjTest.Controller
             }
         }
         #endregion
+        #region ConsultarListaItemPedido
+        public static BindingSource ConsultarListaItemPedido(int idItem)
+        {
+            var contexto = new Contexto();
+            var transacao = contexto.Database.BeginTransaction();
+
+            try
+            {
+                using (contexto)
+                {
+                    using (transacao)
+                    {
+                        return ItemPedido.ConsultarListaItemPedido(idItem, contexto);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+        #endregion
         #region ConsultarListaPed
         public static BindingSource ConsultarListaPed(string status, string tipoPedido)
         {

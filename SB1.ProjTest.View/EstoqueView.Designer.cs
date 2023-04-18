@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.txTotalEstoque = new System.Windows.Forms.TextBox();
             this.lbTotalEstoque = new System.Windows.Forms.Label();
             this.btConsultar = new System.Windows.Forms.Button();
@@ -160,8 +160,11 @@
             // dgConsultaItem
             // 
             this.dgConsultaItem.AllowUserToAddRows = false;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            this.dgConsultaItem.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
+            this.dgConsultaItem.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgConsultaItem.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgConsultaItem.BackgroundColor = System.Drawing.SystemColors.ActiveBorder;
             this.dgConsultaItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgConsultaItem.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -178,9 +181,9 @@
             this.fornecedor});
             this.dgConsultaItem.Location = new System.Drawing.Point(12, 58);
             this.dgConsultaItem.Name = "dgConsultaItem";
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.ControlLight;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.dgConsultaItem.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.ControlLight;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.dgConsultaItem.RowsDefaultCellStyle = dataGridViewCellStyle2;
             this.dgConsultaItem.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.dgConsultaItem.RowTemplate.DefaultCellStyle.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             this.dgConsultaItem.RowTemplate.DefaultCellStyle.SelectionForeColor = System.Drawing.SystemColors.Window;
@@ -265,6 +268,7 @@
             // 
             // cbCategoria
             // 
+            this.cbCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbCategoria.FormattingEnabled = true;
             this.cbCategoria.Location = new System.Drawing.Point(453, 22);
             this.cbCategoria.Name = "cbCategoria";
@@ -273,6 +277,7 @@
             // 
             // lbCategoria
             // 
+            this.lbCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbCategoria.AutoSize = true;
             this.lbCategoria.Location = new System.Drawing.Point(392, 26);
             this.lbCategoria.Name = "lbCategoria";
@@ -282,6 +287,7 @@
             // 
             // lbMarca
             // 
+            this.lbMarca.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbMarca.AutoSize = true;
             this.lbMarca.Location = new System.Drawing.Point(635, 25);
             this.lbMarca.Name = "lbMarca";
@@ -291,6 +297,7 @@
             // 
             // cbMarca
             // 
+            this.cbMarca.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbMarca.FormattingEnabled = true;
             this.cbMarca.Location = new System.Drawing.Point(675, 21);
             this.cbMarca.Name = "cbMarca";
@@ -299,7 +306,7 @@
             // 
             // btEntradaEstoque
             // 
-            this.btEntradaEstoque.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btEntradaEstoque.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btEntradaEstoque.BackColor = System.Drawing.SystemColors.Window;
             this.btEntradaEstoque.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btEntradaEstoque.DialogResult = System.Windows.Forms.DialogResult.Cancel;

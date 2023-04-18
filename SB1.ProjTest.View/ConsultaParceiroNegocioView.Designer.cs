@@ -79,9 +79,9 @@
             // 
             // txNome
             // 
-            this.txNome.BackColor = System.Drawing.SystemColors.Window;
-            this.txNome.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.txNome, "txNome");
+            this.txNome.BackColor = System.Drawing.SystemColors.Window;
+            this.txNome.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txNome.Name = "txNome";
             this.txNome.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txNome_KeyPress);
             // 
@@ -102,6 +102,7 @@
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.White;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.Black;
             this.dgConsultaP.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            resources.ApplyResources(this.dgConsultaP, "dgConsultaP");
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -130,7 +131,6 @@
             dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dgConsultaP.DefaultCellStyle = dataGridViewCellStyle10;
-            resources.ApplyResources(this.dgConsultaP, "dgConsultaP");
             this.dgConsultaP.MultiSelect = false;
             this.dgConsultaP.Name = "dgConsultaP";
             this.dgConsultaP.ReadOnly = true;
@@ -288,8 +288,8 @@
             // 
             // btCancelar
             // 
-            this.btCancelar.BackColor = System.Drawing.SystemColors.Window;
             resources.ApplyResources(this.btCancelar, "btCancelar");
+            this.btCancelar.BackColor = System.Drawing.SystemColors.Window;
             this.btCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btCancelar.FlatAppearance.BorderSize = 0;
             this.btCancelar.Name = "btCancelar";

@@ -18,6 +18,9 @@ namespace SB1.ProjTest.View
             ConsultarUnidadeMedida(null);
             ConsultarMarca(null);
             ConsultarCategoria(null);
+            EntradaEstoque();
+            txQuantidade.Enabled = false;
+            txQuantidade.Text =Convert.ToString("1");
         }
         #endregion
         #region CadastroItemView
@@ -25,6 +28,7 @@ namespace SB1.ProjTest.View
         {
             InitializeComponent(); 
             Consultar(id);
+            EntradaEstoque();
         }
         #endregion
         //Métodos
@@ -189,6 +193,11 @@ namespace SB1.ProjTest.View
                 //Gravacao tabela de Item, estoque e preco
                 if (ItemController.Gravar(item, estoque, preco))
                 {
+                    //Atualiza o id do item
+                    TelaPrincipalView telaPrincipalView = new TelaPrincipalView();
+                    telaPrincipalView.UnidadeVendidas();
+                    telaPrincipalView.MaiorLucro();
+
                     txId.Text = item.id.ToString();
 
                     string mensagem = "Sucesso ao gravar o item: " + item.id.ToString() + " - " + item.nome;
@@ -266,6 +275,16 @@ namespace SB1.ProjTest.View
             {
                 // ignored
             }
+        }
+        #endregion
+        #region EntradaEstoque
+        private void EntradaEstoque()
+        {
+            int idItem = Convert.ToInt32(txId.Text);
+
+            BindingSource bsItemPedido = PedidoController.ConsultarListaItemPedido(idItem);
+
+            dgEntradasEstoque.DataSource = bsItemPedido;
         }
         #endregion
         #region Marca

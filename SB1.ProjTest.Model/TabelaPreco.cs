@@ -148,5 +148,25 @@ namespace SB1.ProjTest.Model
                 throw new Exception(ex.Message);
             }
         }
+
+        public static List<double> ConsultarMargemLucro(Contexto contexto)
+        {
+            try
+            {
+                //instanciando o objeto
+                using (contexto)
+                {
+                    var preco = from tabelaPreco in contexto.TabelaPreco
+                                           select tabelaPreco.margemLucro;
+
+                    return preco.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

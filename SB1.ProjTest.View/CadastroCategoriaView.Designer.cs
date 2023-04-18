@@ -29,18 +29,21 @@
         private void InitializeComponent()
         {
             this.dgCategoria = new System.Windows.Forms.DataGridView();
-            this.btGravar = new System.Windows.Forms.Button();
             this.codigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.categoria = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.descricao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataInsercao = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataAtualizacao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btGravar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgCategoria)).BeginInit();
             this.SuspendLayout();
             // 
             // dgCategoria
             // 
+            this.dgCategoria.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgCategoria.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgCategoria.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codigo,
@@ -53,17 +56,6 @@
             this.dgCategoria.Name = "dgCategoria";
             this.dgCategoria.Size = new System.Drawing.Size(553, 290);
             this.dgCategoria.TabIndex = 8;
-            // 
-            // btGravar
-            // 
-            this.btGravar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btGravar.Location = new System.Drawing.Point(490, 308);
-            this.btGravar.Name = "btGravar";
-            this.btGravar.Size = new System.Drawing.Size(75, 23);
-            this.btGravar.TabIndex = 9;
-            this.btGravar.Text = "Gravar";
-            this.btGravar.UseVisualStyleBackColor = true;
-            this.btGravar.Click += new System.EventHandler(this.btGravar_Click);
             // 
             // codigo
             // 
@@ -105,6 +97,18 @@
             this.dataAtualizacao.HeaderText = "dataAtualizacao";
             this.dataAtualizacao.Name = "dataAtualizacao";
             this.dataAtualizacao.Visible = false;
+            // 
+            // btGravar
+            // 
+            this.btGravar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btGravar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btGravar.Location = new System.Drawing.Point(490, 308);
+            this.btGravar.Name = "btGravar";
+            this.btGravar.Size = new System.Drawing.Size(75, 23);
+            this.btGravar.TabIndex = 9;
+            this.btGravar.Text = "Gravar";
+            this.btGravar.UseVisualStyleBackColor = true;
+            this.btGravar.Click += new System.EventHandler(this.btGravar_Click);
             // 
             // CadastroCategoriaView
             // 

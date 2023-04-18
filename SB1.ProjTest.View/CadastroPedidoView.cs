@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
+using static System.Windows.Forms.LinkLabel;
 
 namespace SB1.ProjTest.View
 {
@@ -90,10 +91,12 @@ namespace SB1.ProjTest.View
         {
             try
             {
-                var preco = new TabelaPreco();
+                //Instanciando as classes
+                TabelaPreco preco = new TabelaPreco();
                 List<MovimentoEstoque> movimentosEstoque = new List<MovimentoEstoque>();
                 List<ItemPedido> itemPedido = new List<ItemPedido>();
 
+                //Validações
                 if (string.IsNullOrEmpty(cbTipoPedido.Text))
                 {
                     throw new Exception("Selecione o tipo de pedido ");
@@ -114,76 +117,59 @@ namespace SB1.ProjTest.View
                     throw new Exception("Insira um Item ");
                 }
 
-                //Inserindo os valores nas tabelas
+                //Inserindo os valores na tabela Pedido
                 Pedido pedido = Pedido();
 
+                //Percorre o grid para inserir os valores na tabela ItemPedido e MovimentoEstoque
                 foreach (DataGridViewRow linha in dgListaItem.Rows)
                 {
                     if (linha.Cells["nome"].Value != null && !string.IsNullOrEmpty(linha.Cells["nome"].Value.ToString()))
                     {
-                        var idItem = Convert.ToInt32(linha.Cells["idItem"].Value);
-                        var estoque = 0;
-                        var quantidadeItemPedido = Convert.ToInt32(linha.Cells["quantidade"].Value);
-                        var movimentoEstoque = Convert.ToInt32(MovimentoEstoqueController.ConsultarEstoque(idItem));
-                        var idMovimento = ItemController.RetornaIdMovimento(idItem);
-                        var unidadesVendidas = MovimentoEstoqueController.ConsultarUnidadesVendidas(idItem);
-                        var precoCusto = TabelaPrecoController.ConsultarPrecoCusto(idItem);
-                        var precoVenda = TabelaPrecoController.ConsultarPrecoVenda(idItem);
+                        //pegando os valores
+                        int idItem = Convert.ToInt32(linha.Cells["idItem"].Value);
+                        string nome = Convert.ToString(linha.Cells["nome"].Value);
+                        int quantidadeItemPedido = Convert.ToInt32(linha.Cells["quantidade"].Value);
+                        double valorUnitario = Convert.ToDouble(linha.Cells["valorUnitario"].Value);
+                        double valorTotal = Convert.ToDouble(linha.Cells["valorTotal"].Value);
+                        Boolean status = Convert.ToBoolean(linha.Cells["status"].Value);
 
-                        //Corrigi o estoque conforme o seu status
-                        if (txStatus.Equals("Cancelado"))
-                        {
-                            estoque = movimentoEstoque + quantidadeItemPedido;
+                        int estoque;
+                        string statusPedido = txStatus.Text;
+                        int consultaEstoque = Convert.ToInt32(MovimentoEstoqueController.ConsultarEstoque(idItem));
+                        int consultaIdMovimento = ItemController.RetornaIdMovimento(idItem);
+                        int consultaUnidadesVendidas = MovimentoEstoqueController.ConsultarUnidadesVendidas(idItem);
+                        double consultaPrecoCusto = TabelaPrecoController.ConsultarPrecoCusto(idItem);
+                        double consultaPrecoVenda = TabelaPrecoController.ConsultarPrecoVenda(idItem);
 
-                        }
-                       
+                        //inserindo os dados e validando
+                        itemPedido = ItemPedidoList(idItem, nome, quantidadeItemPedido, valorUnitario, valorTotal, status);
+
                         //movimento o estoque de acordo com o tipo de pedido
                         if (cbTipoPedido.Text == "Pedido de Compra")
                         {
-                            estoque = movimentoEstoque + quantidadeItemPedido;
+                            string tipoPedido = "Pedido de Compra";
+
+                            movimentosEstoque = MovimentoEstoqueList(tipoPedido, consultaIdMovimento, idItem, consultaUnidadesVendidas, consultaEstoque, quantidadeItemPedido, consultaPrecoCusto, consultaPrecoVenda, statusPedido);
                         }
                         else if (cbTipoPedido.Text == "Pedido de Venda")
                         {
-                            estoque = movimentoEstoque - quantidadeItemPedido;
+                            string tipoPedido = "Pedido de Venda";
 
-                            unidadesVendidas = unidadesVendidas + Convert.ToInt32(linha.Cells["quantidade"].Value);
-                        
+                            if (consultaEstoque > 0)
+                            {
+                                movimentosEstoque = MovimentoEstoqueList(tipoPedido, consultaIdMovimento, idItem, consultaUnidadesVendidas, consultaEstoque, quantidadeItemPedido, consultaPrecoCusto, consultaPrecoVenda, statusPedido);
+                            }
+                            else
+                            {
+                                throw new Exception("Item com estoque insuficiente: " + idItem);
+                            }
                         }
-                        //insere os dados no List ItemPedido
-                        itemPedido.Add(new ItemPedido()
-                        {
-                            //adicionando os campos informados no grid, para os objetos da model
-                            idItem = Convert.ToInt32(linha.Cells["idItem"].Value),
-                            idPedido = 0,
-                            nome = Convert.ToString(linha.Cells["nome"].Value),
-                            quantidade = Convert.ToInt32(linha.Cells["quantidade"].Value),
-                            valorUnitario = Convert.ToDouble(linha.Cells["valorUnitario"].Value),
-                            valorTotal = Convert.ToDouble(linha.Cells["valorTotal"].Value),
-                            status = Convert.ToBoolean(linha.Cells["status"].Value),
-                            dataInsercao = DateTime.Now,
-                        });
-
-                        //calcula os valores de estoque
-                        double totalEstoque = movimentoEstoque * precoCusto;
-                        double totalEstoqueVenda = movimentoEstoque * precoVenda;
-                        double lucro = precoVenda - precoCusto;
-                        movimentosEstoque.Add(new MovimentoEstoque()
-                        {
-                            id = idMovimento,
-                            idItem = idItem,
-                            quantidade = estoque,
-                            totalEstoque = totalEstoque,
-                            totalEstoqueVenda = totalEstoqueVenda,
-                            LucroEstoque = lucro,
-                            dataAtualizacao = DateTime.Now,
-                            dataInsercao = DateTime.Now,
-                            unidadesVendidas = unidadesVendidas
-                        });
                     }
                 }
                 if (PedidoController.Gravar(pedido, itemPedido) &&
                     MovimentoEstoqueController.GravarList(movimentosEstoque))
                 {
+
                     txIdPedido.Text = pedido.idPedido.ToString();
 
                     string codigo = txIdPedido.Text;
@@ -229,6 +215,132 @@ namespace SB1.ProjTest.View
                 dataVencimento = dataVence
             };
             return pedido;
+        }
+        #endregion
+        #region ItemPedido
+        private List<ItemPedido> ItemPedidoList(int idItem, string nome, int quantidade, double valorUnitario, double valorTotal, Boolean status)
+        {
+            List<ItemPedido> itemPedidos = new List<ItemPedido>
+            {
+                new ItemPedido()
+                {
+                    //adicionando os campos informados no grid, para os objetos
+                    idItem = idItem,
+                    idPedido = 0,
+                    nome = nome,
+                    quantidade = quantidade,
+                    valorUnitario = valorUnitario,
+                    valorTotal = valorTotal,
+                    status = status,
+                    dataInsercao = DateTime.Now,
+                }
+            };
+
+            return itemPedidos;
+        }
+        #endregion
+        #region MovimentoEstoqueList
+        private List<MovimentoEstoque> MovimentoEstoqueList(string tipoPedido, int consultaIdMovimento, int idItem, int consultaUnidadesVendidas, int consultaEstoque, int quantidadeItemPedido, double consultaPrecoCusto, double consultaPrecoVenda, string statusPedido)
+        {
+            List<MovimentoEstoque> estoqueList = new List<MovimentoEstoque>();
+            int estoque;
+            //movimento o estoque de acordo com o tipo de pedido
+            if (tipoPedido.Equals("Pedido de Compra"))
+            {
+                if (statusPedido.Equals("Cancelado"))
+                {
+                    estoque = consultaEstoque - quantidadeItemPedido;
+
+                    double totalEstoque = estoque * consultaPrecoCusto;
+                    double totalEstoqueVenda = estoque * consultaPrecoVenda;
+                    double lucro = consultaPrecoVenda - consultaPrecoCusto;
+
+                    estoqueList.Add(new MovimentoEstoque()
+                    {
+                        id = consultaIdMovimento,
+                        idItem = idItem,
+                        quantidade = estoque,
+                        totalEstoque = totalEstoque,
+                        totalEstoqueVenda = totalEstoqueVenda,
+                        LucroEstoque = lucro,
+                        dataAtualizacao = DateTime.Now,
+                        dataInsercao = DateTime.Now,
+                        unidadesVendidas = consultaUnidadesVendidas
+                    });
+                }
+                else
+                {
+                    estoque = consultaEstoque + quantidadeItemPedido;
+
+                    double totalEstoque = estoque * consultaPrecoCusto;
+                    double totalEstoqueVenda = estoque * consultaPrecoVenda;
+                    double lucro = consultaPrecoVenda - consultaPrecoCusto;
+
+                    estoqueList.Add(new MovimentoEstoque()
+                    {
+                        id = consultaIdMovimento,
+                        idItem = idItem,
+                        quantidade = estoque,
+                        totalEstoque = totalEstoque,
+                        totalEstoqueVenda = totalEstoqueVenda,
+                        LucroEstoque = lucro,
+                        dataAtualizacao = DateTime.Now,
+                        dataInsercao = DateTime.Now,
+                        unidadesVendidas = consultaUnidadesVendidas
+                    });
+                }
+            }
+            else if (tipoPedido.Equals("Pedido de Venda"))
+            {
+                if (statusPedido.Equals("Cancelado"))
+                {
+                    estoque = consultaEstoque + quantidadeItemPedido;
+
+                    consultaUnidadesVendidas += quantidadeItemPedido;
+
+                    double totalEstoque = estoque * consultaPrecoCusto;
+                    double totalEstoqueVenda = estoque * consultaPrecoVenda;
+                    double lucro = consultaPrecoVenda - consultaPrecoCusto;
+
+                    estoqueList.Add(new MovimentoEstoque()
+                    {
+                        id = consultaIdMovimento,
+                        idItem = idItem,
+                        quantidade = estoque,
+                        totalEstoque = totalEstoque,
+                        totalEstoqueVenda = totalEstoqueVenda,
+                        LucroEstoque = lucro,
+                        dataAtualizacao = DateTime.Now,
+                        dataInsercao = DateTime.Now,
+                        unidadesVendidas = consultaUnidadesVendidas
+                    });
+                }
+                else
+                {
+                    estoque = consultaEstoque - quantidadeItemPedido;
+
+                    consultaUnidadesVendidas += quantidadeItemPedido;
+
+                    double totalEstoque = estoque * consultaPrecoCusto;
+                    double totalEstoqueVenda = estoque * consultaPrecoVenda;
+                    double lucro = consultaPrecoVenda - consultaPrecoCusto;
+
+                    estoqueList.Add(new MovimentoEstoque()
+                    {
+                        id = consultaIdMovimento,
+                        idItem = idItem,
+                        quantidade = estoque,
+                        totalEstoque = totalEstoque,
+                        totalEstoqueVenda = totalEstoqueVenda,
+                        LucroEstoque = lucro,
+                        dataAtualizacao = DateTime.Now,
+                        dataInsercao = DateTime.Now,
+                        unidadesVendidas = consultaUnidadesVendidas
+                    });
+                }
+
+            }
+            return estoqueList;
         }
         #endregion
         #region VerificaStatus
@@ -451,9 +563,10 @@ namespace SB1.ProjTest.View
 
             DtDataInsercao.Enabled = false;
             DtDataVencimento.Enabled = false;
-            
+
         }
         #endregion
+        //validações
         #region ApenasNumero
         private void ApenasNumero(object sender, KeyPressEventArgs e)
         {
@@ -540,6 +653,9 @@ namespace SB1.ProjTest.View
         private void btSalvar_Click(object sender, EventArgs e)
         {
             Gravar();
+            TelaPrincipalView telaPrincipalView = new TelaPrincipalView();
+            telaPrincipalView.UnidadeVendidas();
+            telaPrincipalView.MaiorLucro();
         }
         #endregion
         #region dgListaItem_CellEndEdit

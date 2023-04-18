@@ -36,11 +36,6 @@
             this.lbNome = new System.Windows.Forms.Label();
             this.txNome = new System.Windows.Forms.TextBox();
             this.dgConsultaItem = new System.Windows.Forms.DataGridView();
-            this.btConsultar = new System.Windows.Forms.Button();
-            this.btImprimir = new System.Windows.Forms.Button();
-            this.btExcluir = new System.Windows.Forms.Button();
-            this.btAbrir = new System.Windows.Forms.Button();
-            this.btCancelar = new System.Windows.Forms.Button();
             this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fornecedor = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,6 +45,11 @@
             this.precoVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalEstoque = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalEstoqueVenda = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btConsultar = new System.Windows.Forms.Button();
+            this.btImprimir = new System.Windows.Forms.Button();
+            this.btExcluir = new System.Windows.Forms.Button();
+            this.btAbrir = new System.Windows.Forms.Button();
+            this.btCancelar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgConsultaItem)).BeginInit();
             this.SuspendLayout();
             // 
@@ -76,6 +76,7 @@
             // 
             // lbNome
             // 
+            this.lbNome.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbNome.AutoSize = true;
             this.lbNome.Location = new System.Drawing.Point(155, 30);
             this.lbNome.Name = "lbNome";
@@ -85,6 +86,7 @@
             // 
             // txNome
             // 
+            this.txNome.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txNome.BackColor = System.Drawing.SystemColors.Window;
             this.txNome.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txNome.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -99,6 +101,9 @@
             this.dgConsultaItem.AllowUserToAddRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             this.dgConsultaItem.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgConsultaItem.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgConsultaItem.BackgroundColor = System.Drawing.SystemColors.ActiveBorder;
             this.dgConsultaItem.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgConsultaItem.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -122,89 +127,6 @@
             this.dgConsultaItem.Size = new System.Drawing.Size(669, 372);
             this.dgConsultaItem.TabIndex = 17;
             this.dgConsultaItem.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgConsultaItem_CellMouseDoubleClick);
-            // 
-            // btConsultar
-            // 
-            this.btConsultar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btConsultar.BackColor = System.Drawing.SystemColors.Window;
-            this.btConsultar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btConsultar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btConsultar.FlatAppearance.BorderSize = 0;
-            this.btConsultar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btConsultar.ForeColor = System.Drawing.Color.Black;
-            this.btConsultar.Location = new System.Drawing.Point(615, 22);
-            this.btConsultar.Name = "btConsultar";
-            this.btConsultar.Size = new System.Drawing.Size(65, 27);
-            this.btConsultar.TabIndex = 3;
-            this.btConsultar.Text = "Buscar";
-            this.btConsultar.UseVisualStyleBackColor = false;
-            this.btConsultar.Click += new System.EventHandler(this.btConsultar_Click);
-            // 
-            // btImprimir
-            // 
-            this.btImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btImprimir.BackColor = System.Drawing.SystemColors.Window;
-            this.btImprimir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btImprimir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btImprimir.FlatAppearance.BorderSize = 0;
-            this.btImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btImprimir.ForeColor = System.Drawing.Color.Black;
-            this.btImprimir.Location = new System.Drawing.Point(619, 434);
-            this.btImprimir.Name = "btImprimir";
-            this.btImprimir.Size = new System.Drawing.Size(61, 28);
-            this.btImprimir.TabIndex = 17;
-            this.btImprimir.Text = "Imprimir";
-            this.btImprimir.UseVisualStyleBackColor = false;
-            this.btImprimir.Click += new System.EventHandler(this.btImprimir_Click);
-            // 
-            // btExcluir
-            // 
-            this.btExcluir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btExcluir.BackColor = System.Drawing.SystemColors.Window;
-            this.btExcluir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btExcluir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btExcluir.FlatAppearance.BorderSize = 0;
-            this.btExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btExcluir.ForeColor = System.Drawing.Color.Black;
-            this.btExcluir.Location = new System.Drawing.Point(169, 433);
-            this.btExcluir.Name = "btExcluir";
-            this.btExcluir.Size = new System.Drawing.Size(61, 28);
-            this.btExcluir.TabIndex = 16;
-            this.btExcluir.Text = "Excluir";
-            this.btExcluir.UseVisualStyleBackColor = false;
-            this.btExcluir.Click += new System.EventHandler(this.btExcluir_Click);
-            // 
-            // btAbrir
-            // 
-            this.btAbrir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btAbrir.BackColor = System.Drawing.SystemColors.Window;
-            this.btAbrir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btAbrir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btAbrir.FlatAppearance.BorderSize = 0;
-            this.btAbrir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btAbrir.ForeColor = System.Drawing.Color.Black;
-            this.btAbrir.Location = new System.Drawing.Point(78, 433);
-            this.btAbrir.Name = "btAbrir";
-            this.btAbrir.Size = new System.Drawing.Size(85, 28);
-            this.btAbrir.TabIndex = 15;
-            this.btAbrir.Text = "Abrir Cadastro";
-            this.btAbrir.UseVisualStyleBackColor = false;
-            this.btAbrir.Click += new System.EventHandler(this.btAbrir_Click);
-            // 
-            // btCancelar
-            // 
-            this.btCancelar.BackColor = System.Drawing.SystemColors.Window;
-            this.btCancelar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btCancelar.FlatAppearance.BorderSize = 0;
-            this.btCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btCancelar.Location = new System.Drawing.Point(11, 434);
-            this.btCancelar.Name = "btCancelar";
-            this.btCancelar.Size = new System.Drawing.Size(61, 28);
-            this.btCancelar.TabIndex = 14;
-            this.btCancelar.Text = "Fechar";
-            this.btCancelar.UseVisualStyleBackColor = false;
-            this.btCancelar.Click += new System.EventHandler(this.btCancelar_Click);
             // 
             // id
             // 
@@ -266,6 +188,90 @@
             this.totalEstoqueVenda.HeaderText = "Total Estoque Venda";
             this.totalEstoqueVenda.Name = "totalEstoqueVenda";
             this.totalEstoqueVenda.Visible = false;
+            // 
+            // btConsultar
+            // 
+            this.btConsultar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btConsultar.BackColor = System.Drawing.SystemColors.Window;
+            this.btConsultar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btConsultar.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btConsultar.FlatAppearance.BorderSize = 0;
+            this.btConsultar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btConsultar.ForeColor = System.Drawing.Color.Black;
+            this.btConsultar.Location = new System.Drawing.Point(615, 22);
+            this.btConsultar.Name = "btConsultar";
+            this.btConsultar.Size = new System.Drawing.Size(65, 27);
+            this.btConsultar.TabIndex = 3;
+            this.btConsultar.Text = "Buscar";
+            this.btConsultar.UseVisualStyleBackColor = false;
+            this.btConsultar.Click += new System.EventHandler(this.btConsultar_Click);
+            // 
+            // btImprimir
+            // 
+            this.btImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btImprimir.BackColor = System.Drawing.SystemColors.Window;
+            this.btImprimir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btImprimir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btImprimir.FlatAppearance.BorderSize = 0;
+            this.btImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btImprimir.ForeColor = System.Drawing.Color.Black;
+            this.btImprimir.Location = new System.Drawing.Point(619, 434);
+            this.btImprimir.Name = "btImprimir";
+            this.btImprimir.Size = new System.Drawing.Size(61, 28);
+            this.btImprimir.TabIndex = 17;
+            this.btImprimir.Text = "Imprimir";
+            this.btImprimir.UseVisualStyleBackColor = false;
+            this.btImprimir.Click += new System.EventHandler(this.btImprimir_Click);
+            // 
+            // btExcluir
+            // 
+            this.btExcluir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btExcluir.BackColor = System.Drawing.SystemColors.Window;
+            this.btExcluir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btExcluir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btExcluir.FlatAppearance.BorderSize = 0;
+            this.btExcluir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btExcluir.ForeColor = System.Drawing.Color.Black;
+            this.btExcluir.Location = new System.Drawing.Point(169, 433);
+            this.btExcluir.Name = "btExcluir";
+            this.btExcluir.Size = new System.Drawing.Size(61, 28);
+            this.btExcluir.TabIndex = 16;
+            this.btExcluir.Text = "Excluir";
+            this.btExcluir.UseVisualStyleBackColor = false;
+            this.btExcluir.Click += new System.EventHandler(this.btExcluir_Click);
+            // 
+            // btAbrir
+            // 
+            this.btAbrir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btAbrir.BackColor = System.Drawing.SystemColors.Window;
+            this.btAbrir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btAbrir.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btAbrir.FlatAppearance.BorderSize = 0;
+            this.btAbrir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btAbrir.ForeColor = System.Drawing.Color.Black;
+            this.btAbrir.Location = new System.Drawing.Point(78, 433);
+            this.btAbrir.Name = "btAbrir";
+            this.btAbrir.Size = new System.Drawing.Size(85, 28);
+            this.btAbrir.TabIndex = 15;
+            this.btAbrir.Text = "Abrir Cadastro";
+            this.btAbrir.UseVisualStyleBackColor = false;
+            this.btAbrir.Click += new System.EventHandler(this.btAbrir_Click);
+            // 
+            // btCancelar
+            // 
+            this.btCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btCancelar.BackColor = System.Drawing.SystemColors.Window;
+            this.btCancelar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btCancelar.FlatAppearance.BorderSize = 0;
+            this.btCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btCancelar.Location = new System.Drawing.Point(11, 434);
+            this.btCancelar.Name = "btCancelar";
+            this.btCancelar.Size = new System.Drawing.Size(61, 28);
+            this.btCancelar.TabIndex = 14;
+            this.btCancelar.Text = "Fechar";
+            this.btCancelar.UseVisualStyleBackColor = false;
+            this.btCancelar.Click += new System.EventHandler(this.btCancelar_Click);
             // 
             // ConsultaItemView
             // 

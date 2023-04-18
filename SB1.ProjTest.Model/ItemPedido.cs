@@ -127,5 +127,30 @@ namespace SB1.ProjTest.Model
             }
         }
         #endregion
+        #region ConsultarListaItem
+        public static BindingSource ConsultarListaItemPedido(int idItem, Contexto contexto)
+        {
+            try
+            {
+                BindingSource bsItem = new BindingSource();
+                using (contexto)
+                {
+                    var consultarItem = from item in contexto.ItemPedido
+                                        //join parceiro in contexto.ParceiroNegocio on pedido.idParceiro equals parceiro.id
+                                        join pedido in contexto.Pedido on item.idPedido equals pedido.idPedido
+                                        where (item.idItem == idItem)
+                                        where (pedido.tipoPedido == "PC")
+                                        select new { item.nome, item.quantidade, item.valorUnitario, item.dataInsercao};
+
+                    bsItem.DataSource = consultarItem.ToList();
+                }
+                return bsItem;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        #endregion
     }
 }

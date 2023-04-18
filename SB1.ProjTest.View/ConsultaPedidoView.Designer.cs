@@ -35,13 +35,6 @@ namespace SB1.ProjTest.View
             this.btAbrirCadastro = new System.Windows.Forms.Button();
             this.btImprimir = new System.Windows.Forms.Button();
             this.dgConsultaPedido = new System.Windows.Forms.DataGridView();
-            this.idPedido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoPedido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalNota = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataInsercao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lbTipoPedido = new System.Windows.Forms.Label();
             this.cbTipoPedido = new System.Windows.Forms.ComboBox();
             this.lbStatus = new System.Windows.Forms.Label();
@@ -53,6 +46,13 @@ namespace SB1.ProjTest.View
             this.txIdParceiro = new System.Windows.Forms.TextBox();
             this.txNomeParceiro = new System.Windows.Forms.TextBox();
             this.btListaParceiro = new System.Windows.Forms.Button();
+            this.idPedido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipoPedido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalNota = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataInsercao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gpConsulta.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgConsultaPedido)).BeginInit();
             this.SuspendLayout();
@@ -64,13 +64,14 @@ namespace SB1.ProjTest.View
             this.gpConsulta.Controls.Add(this.dgConsultaPedido);
             this.gpConsulta.Location = new System.Drawing.Point(12, 50);
             this.gpConsulta.Name = "gpConsulta";
-            this.gpConsulta.Size = new System.Drawing.Size(983, 434);
+            this.gpConsulta.Size = new System.Drawing.Size(1084, 434);
             this.gpConsulta.TabIndex = 0;
             this.gpConsulta.TabStop = false;
             this.gpConsulta.Text = "Itens";
             // 
             // btAbrirCadastro
             // 
+            this.btAbrirCadastro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btAbrirCadastro.BackColor = System.Drawing.SystemColors.Window;
             this.btAbrirCadastro.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btAbrirCadastro.Location = new System.Drawing.Point(7, 394);
@@ -82,9 +83,10 @@ namespace SB1.ProjTest.View
             // 
             // btImprimir
             // 
+            this.btImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btImprimir.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btImprimir.Location = new System.Drawing.Point(902, 394);
+            this.btImprimir.Location = new System.Drawing.Point(1003, 394);
             this.btImprimir.Name = "btImprimir";
             this.btImprimir.Size = new System.Drawing.Size(75, 30);
             this.btImprimir.TabIndex = 11;
@@ -93,6 +95,11 @@ namespace SB1.ProjTest.View
             // 
             // dgConsultaPedido
             // 
+            this.dgConsultaPedido.AllowUserToAddRows = false;
+            this.dgConsultaPedido.AllowUserToDeleteRows = false;
+            this.dgConsultaPedido.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgConsultaPedido.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgConsultaPedido.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.idPedido,
@@ -104,63 +111,18 @@ namespace SB1.ProjTest.View
             this.status});
             this.dgConsultaPedido.Location = new System.Drawing.Point(7, 20);
             this.dgConsultaPedido.Name = "dgConsultaPedido";
-            this.dgConsultaPedido.Size = new System.Drawing.Size(970, 368);
+            this.dgConsultaPedido.ReadOnly = true;
+            this.dgConsultaPedido.Size = new System.Drawing.Size(1071, 368);
             this.dgConsultaPedido.TabIndex = 0;
             this.dgConsultaPedido.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgConsultaPedido_CellFormatting);
             this.dgConsultaPedido.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgConsultaPedido_CellMouseDoubleClick);
             // 
-            // idPedido
-            // 
-            this.idPedido.DataPropertyName = "idPedido";
-            this.idPedido.HeaderText = "Nº Pedido";
-            this.idPedido.Name = "idPedido";
-            this.idPedido.Width = 80;
-            // 
-            // tipoPedido
-            // 
-            this.tipoPedido.DataPropertyName = "tipoPedido";
-            this.tipoPedido.HeaderText = "Tipo de Pedido";
-            this.tipoPedido.Name = "tipoPedido";
-            // 
-            // nome
-            // 
-            this.nome.DataPropertyName = "nome";
-            this.nome.HeaderText = "Cliente/Fornecedor";
-            this.nome.Name = "nome";
-            this.nome.Width = 315;
-            // 
-            // totalNota
-            // 
-            this.totalNota.DataPropertyName = "totalNota";
-            this.totalNota.HeaderText = "Valor Total";
-            this.totalNota.Name = "totalNota";
-            this.totalNota.Width = 92;
-            // 
-            // dataInsercao
-            // 
-            this.dataInsercao.DataPropertyName = "dataInsercao";
-            this.dataInsercao.HeaderText = "Data Inserção";
-            this.dataInsercao.Name = "dataInsercao";
-            // 
-            // dataVencimento
-            // 
-            this.dataVencimento.DataPropertyName = "dataVencimento";
-            this.dataVencimento.HeaderText = "Data Vencimento ";
-            this.dataVencimento.Name = "dataVencimento";
-            this.dataVencimento.Width = 120;
-            // 
-            // status
-            // 
-            this.status.DataPropertyName = "status";
-            this.status.HeaderText = "Status";
-            this.status.Name = "status";
-            this.status.Width = 120;
-            // 
             // lbTipoPedido
             // 
+            this.lbTipoPedido.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTipoPedido.AutoSize = true;
             this.lbTipoPedido.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTipoPedido.Location = new System.Drawing.Point(588, 17);
+            this.lbTipoPedido.Location = new System.Drawing.Point(695, 17);
             this.lbTipoPedido.Name = "lbTipoPedido";
             this.lbTipoPedido.Size = new System.Drawing.Size(27, 13);
             this.lbTipoPedido.TabIndex = 4;
@@ -168,6 +130,7 @@ namespace SB1.ProjTest.View
             // 
             // cbTipoPedido
             // 
+            this.cbTipoPedido.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbTipoPedido.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTipoPedido.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbTipoPedido.FormattingEnabled = true;
@@ -175,9 +138,9 @@ namespace SB1.ProjTest.View
             "",
             "Compra",
             "Venda"});
-            this.cbTipoPedido.Location = new System.Drawing.Point(621, 12);
+            this.cbTipoPedido.Location = new System.Drawing.Point(728, 12);
             this.cbTipoPedido.Name = "cbTipoPedido";
-            this.cbTipoPedido.Size = new System.Drawing.Size(129, 21);
+            this.cbTipoPedido.Size = new System.Drawing.Size(171, 21);
             this.cbTipoPedido.TabIndex = 5;
             // 
             // lbStatus
@@ -201,16 +164,17 @@ namespace SB1.ProjTest.View
             "Cancelado",
             "Parcialmente Atendido",
             "Atendido"});
-            this.cbStatus.Location = new System.Drawing.Point(157, 14);
+            this.cbStatus.Location = new System.Drawing.Point(157, 12);
             this.cbStatus.Name = "cbStatus";
-            this.cbStatus.Size = new System.Drawing.Size(130, 21);
+            this.cbStatus.Size = new System.Drawing.Size(162, 21);
             this.cbStatus.TabIndex = 7;
             // 
             // btConsultar
             // 
+            this.btConsultar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btConsultar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btConsultar.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btConsultar.Location = new System.Drawing.Point(891, 14);
+            this.btConsultar.Location = new System.Drawing.Point(998, 14);
             this.btConsultar.Name = "btConsultar";
             this.btConsultar.Size = new System.Drawing.Size(98, 30);
             this.btConsultar.TabIndex = 13;
@@ -229,15 +193,16 @@ namespace SB1.ProjTest.View
             // 
             // txIdPedido
             // 
-            this.txIdPedido.Location = new System.Drawing.Point(61, 14);
+            this.txIdPedido.Location = new System.Drawing.Point(61, 12);
             this.txIdPedido.Name = "txIdPedido";
             this.txIdPedido.Size = new System.Drawing.Size(40, 20);
             this.txIdPedido.TabIndex = 15;
             // 
             // lbParceiro
             // 
+            this.lbParceiro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbParceiro.AutoSize = true;
-            this.lbParceiro.Location = new System.Drawing.Point(300, 16);
+            this.lbParceiro.Location = new System.Drawing.Point(325, 16);
             this.lbParceiro.Name = "lbParceiro";
             this.lbParceiro.Size = new System.Drawing.Size(46, 13);
             this.lbParceiro.TabIndex = 16;
@@ -245,23 +210,26 @@ namespace SB1.ProjTest.View
             // 
             // txIdParceiro
             // 
-            this.txIdParceiro.Location = new System.Drawing.Point(538, 13);
+            this.txIdParceiro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txIdParceiro.Location = new System.Drawing.Point(645, 12);
             this.txIdParceiro.Name = "txIdParceiro";
             this.txIdParceiro.Size = new System.Drawing.Size(40, 20);
             this.txIdParceiro.TabIndex = 17;
             // 
             // txNomeParceiro
             // 
-            this.txNomeParceiro.Location = new System.Drawing.Point(391, 13);
+            this.txNomeParceiro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txNomeParceiro.Location = new System.Drawing.Point(419, 12);
             this.txNomeParceiro.Name = "txNomeParceiro";
-            this.txNomeParceiro.Size = new System.Drawing.Size(144, 20);
+            this.txNomeParceiro.Size = new System.Drawing.Size(223, 20);
             this.txNomeParceiro.TabIndex = 18;
             // 
             // btListaParceiro
             // 
+            this.btListaParceiro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btListaParceiro.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btListaParceiro.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btListaParceiro.Location = new System.Drawing.Point(352, 13);
+            this.btListaParceiro.Location = new System.Drawing.Point(377, 12);
             this.btListaParceiro.Name = "btListaParceiro";
             this.btListaParceiro.Size = new System.Drawing.Size(36, 20);
             this.btListaParceiro.TabIndex = 19;
@@ -269,12 +237,75 @@ namespace SB1.ProjTest.View
             this.btListaParceiro.UseVisualStyleBackColor = true;
             this.btListaParceiro.Click += new System.EventHandler(this.btListaParceiro_Click);
             // 
+            // idPedido
+            // 
+            this.idPedido.DataPropertyName = "idPedido";
+            this.idPedido.HeaderText = "Nº Pedido";
+            this.idPedido.Name = "idPedido";
+            this.idPedido.ReadOnly = true;
+            this.idPedido.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.idPedido.Width = 80;
+            // 
+            // tipoPedido
+            // 
+            this.tipoPedido.DataPropertyName = "tipoPedido";
+            this.tipoPedido.HeaderText = "Tipo de Pedido";
+            this.tipoPedido.Name = "tipoPedido";
+            this.tipoPedido.ReadOnly = true;
+            this.tipoPedido.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.tipoPedido.Width = 110;
+            // 
+            // nome
+            // 
+            this.nome.DataPropertyName = "nome";
+            this.nome.HeaderText = "Cliente/Fornecedor";
+            this.nome.Name = "nome";
+            this.nome.ReadOnly = true;
+            this.nome.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.nome.Width = 301;
+            // 
+            // totalNota
+            // 
+            this.totalNota.DataPropertyName = "totalNota";
+            this.totalNota.HeaderText = "Valor Total";
+            this.totalNota.Name = "totalNota";
+            this.totalNota.ReadOnly = true;
+            this.totalNota.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.totalNota.Width = 150;
+            // 
+            // dataInsercao
+            // 
+            this.dataInsercao.DataPropertyName = "dataInsercao";
+            this.dataInsercao.HeaderText = "Data Inserção";
+            this.dataInsercao.Name = "dataInsercao";
+            this.dataInsercao.ReadOnly = true;
+            this.dataInsercao.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataInsercao.Width = 130;
+            // 
+            // dataVencimento
+            // 
+            this.dataVencimento.DataPropertyName = "dataVencimento";
+            this.dataVencimento.HeaderText = "Data Vencimento ";
+            this.dataVencimento.Name = "dataVencimento";
+            this.dataVencimento.ReadOnly = true;
+            this.dataVencimento.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataVencimento.Width = 120;
+            // 
+            // status
+            // 
+            this.status.DataPropertyName = "status";
+            this.status.HeaderText = "Status";
+            this.status.Name = "status";
+            this.status.ReadOnly = true;
+            this.status.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.status.Width = 120;
+            // 
             // ConsultaPedidoView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.ClientSize = new System.Drawing.Size(1007, 496);
+            this.ClientSize = new System.Drawing.Size(1114, 496);
             this.Controls.Add(this.btListaParceiro);
             this.Controls.Add(this.txNomeParceiro);
             this.Controls.Add(this.txIdParceiro);

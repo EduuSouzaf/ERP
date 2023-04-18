@@ -41,6 +41,7 @@
             // 
             // btGravar
             // 
+            this.btGravar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btGravar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btGravar.Location = new System.Drawing.Point(490, 308);
             this.btGravar.Name = "btGravar";
@@ -52,6 +53,9 @@
             // 
             // dgUnidadeMedida
             // 
+            this.dgUnidadeMedida.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgUnidadeMedida.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgUnidadeMedida.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.codigo,
@@ -106,14 +110,14 @@
             this.dataInsercao.Name = "dataInsercao";
             this.dataInsercao.Visible = false;
             // 
-            // CadastroUnidadeMedida
+            // CadastroUnidadeMedidaView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(579, 346);
             this.Controls.Add(this.btGravar);
             this.Controls.Add(this.dgUnidadeMedida);
-            this.Name = "CadastroUnidadeMedida";
+            this.Name = "CadastroUnidadeMedidaView";
             this.Text = "CadastroUnidadeMedida";
             ((System.ComponentModel.ISupportInitialize)(this.dgUnidadeMedida)).EndInit();
             this.ResumeLayout(false);

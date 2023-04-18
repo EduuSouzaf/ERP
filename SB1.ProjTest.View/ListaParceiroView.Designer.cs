@@ -74,6 +74,9 @@
             // 
             // gpListaItens
             // 
+            this.gpListaItens.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gpListaItens.BackColor = System.Drawing.SystemColors.Window;
             this.gpListaItens.Controls.Add(this.btCadastrarFornecedor);
             this.gpListaItens.Controls.Add(this.dgConsultaParceiro);
@@ -88,7 +91,7 @@
             // 
             // btCadastrarFornecedor
             // 
-            this.btCadastrarFornecedor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btCadastrarFornecedor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btCadastrarFornecedor.BackColor = System.Drawing.SystemColors.Window;
             this.btCadastrarFornecedor.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btCadastrarFornecedor.Location = new System.Drawing.Point(110, 362);
@@ -107,6 +110,9 @@
             this.dgConsultaParceiro.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             this.dgConsultaParceiro.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgConsultaParceiro.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgConsultaParceiro.BackgroundColor = System.Drawing.SystemColors.ControlDark;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;

@@ -81,6 +81,7 @@
             // 
             // lbTelefone
             // 
+            this.lbTelefone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbTelefone.AutoSize = true;
             this.lbTelefone.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbTelefone.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -92,6 +93,7 @@
             // 
             // labDataInsercao
             // 
+            this.labDataInsercao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labDataInsercao.AutoSize = true;
             this.labDataInsercao.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labDataInsercao.ForeColor = System.Drawing.SystemColors.ControlText;
@@ -103,6 +105,7 @@
             // 
             // lbMail
             // 
+            this.lbMail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbMail.AutoSize = true;
             this.lbMail.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbMail.Location = new System.Drawing.Point(550, 49);
@@ -162,6 +165,7 @@
             // 
             // labDataAtualizacao
             // 
+            this.labDataAtualizacao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.labDataAtualizacao.AutoSize = true;
             this.labDataAtualizacao.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labDataAtualizacao.Location = new System.Drawing.Point(604, 99);
@@ -184,6 +188,9 @@
             // 
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
             this.dgEndereco.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgEndereco.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgEndereco.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgEndereco.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.logradouro,
@@ -303,6 +310,7 @@
             // 
             // txTelefone
             // 
+            this.txTelefone.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txTelefone.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txTelefone.Location = new System.Drawing.Point(589, 22);
             this.txTelefone.Mask = "(00)0,0000-0000";
@@ -313,6 +321,7 @@
             // 
             // btCancelar
             // 
+            this.btCancelar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btCancelar.BackColor = System.Drawing.SystemColors.Window;
             this.btCancelar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btCancelar.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -328,6 +337,9 @@
             // 
             // gpEndereco
             // 
+            this.gpEndereco.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gpEndereco.BackColor = System.Drawing.SystemColors.Window;
             this.gpEndereco.Controls.Add(this.btCadastrar);
             this.gpEndereco.Controls.Add(this.btExcluirEndereco);
@@ -344,7 +356,7 @@
             // 
             // btCadastrar
             // 
-            this.btCadastrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btCadastrar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btCadastrar.BackColor = System.Drawing.SystemColors.Window;
             this.btCadastrar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btCadastrar.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -362,6 +374,7 @@
             // 
             // btExcluirEndereco
             // 
+            this.btExcluirEndereco.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btExcluirEndereco.BackColor = System.Drawing.SystemColors.Window;
             this.btExcluirEndereco.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btExcluirEndereco.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -377,7 +390,7 @@
             // 
             // btImprimir
             // 
-            this.btImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btImprimir.BackColor = System.Drawing.SystemColors.Window;
             this.btImprimir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.btImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
@@ -404,6 +417,7 @@
             // 
             // txEmail
             // 
+            this.txEmail.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.txEmail.BackColor = System.Drawing.SystemColors.Window;
             this.txEmail.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txEmail.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
@@ -414,6 +428,7 @@
             // 
             // dtDataInsercao
             // 
+            this.dtDataInsercao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtDataInsercao.Enabled = false;
             this.dtDataInsercao.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtDataInsercao.Location = new System.Drawing.Point(691, 72);
@@ -423,6 +438,7 @@
             // 
             // dtDataAtualizacao
             // 
+            this.dtDataAtualizacao.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.dtDataAtualizacao.Enabled = false;
             this.dtDataAtualizacao.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtDataAtualizacao.Location = new System.Drawing.Point(691, 96);

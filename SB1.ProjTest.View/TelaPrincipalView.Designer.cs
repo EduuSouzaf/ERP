@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TelaPrincipalView));
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,10 +85,12 @@
             this.pictureBox9 = new System.Windows.Forms.PictureBox();
             this.parceiroNegocioTableAdapter1 = new SB1.ProjTest.View.ProgramaEduardoDataSetTableAdapters.ParceiroNegocioTableAdapter();
             this.parceiroNegocioTableAdapter2 = new SB1.ProjTest.View.ProgramaEduardoDataSetTableAdapters.ParceiroNegocioTableAdapter();
+            this.ctMaiorLucro = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.menuStrip.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ctUnidadesVendidas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ctMaiorLucro)).BeginInit();
             this.SuspendLayout();
             // 
             // newToolStripMenuItem
@@ -454,6 +457,7 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(44)))), ((int)(((byte)(52)))));
+            this.panel1.Controls.Add(this.ctMaiorLucro);
             this.panel1.Controls.Add(this.ctUnidadesVendidas);
             this.panel1.Controls.Add(this.pictureBox9);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -465,13 +469,12 @@
             // ctUnidadesVendidas
             // 
             this.ctUnidadesVendidas.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            chartArea1.Name = "ChartArea1";
-            this.ctUnidadesVendidas.ChartAreas.Add(chartArea1);
+            chartArea2.Name = "ChartArea1";
+            this.ctUnidadesVendidas.ChartAreas.Add(chartArea2);
             this.ctUnidadesVendidas.Location = new System.Drawing.Point(836, 24);
             this.ctUnidadesVendidas.Name = "ctUnidadesVendidas";
             this.ctUnidadesVendidas.Size = new System.Drawing.Size(529, 300);
             this.ctUnidadesVendidas.TabIndex = 4;
-            this.ctUnidadesVendidas.Text = "chart1";
             // 
             // pictureBox9
             // 
@@ -491,6 +494,16 @@
             // parceiroNegocioTableAdapter2
             // 
             this.parceiroNegocioTableAdapter2.ClearBeforeFill = true;
+            // 
+            // ctMaiorLucro
+            // 
+            this.ctMaiorLucro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            chartArea1.Name = "ChartArea1";
+            this.ctMaiorLucro.ChartAreas.Add(chartArea1);
+            this.ctMaiorLucro.Location = new System.Drawing.Point(836, 368);
+            this.ctMaiorLucro.Name = "ctMaiorLucro";
+            this.ctMaiorLucro.Size = new System.Drawing.Size(529, 300);
+            this.ctMaiorLucro.TabIndex = 5;
             // 
             // TelaPrincipalView
             // 
@@ -513,6 +526,7 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ctUnidadesVendidas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox9)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ctMaiorLucro)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -571,6 +585,7 @@
         private System.Windows.Forms.ToolStripMenuItem cadastrarUnidadeDeMedidaToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cadastrarMarcaToolStripMenuItem;
         private System.Windows.Forms.DataVisualization.Charting.Chart ctUnidadesVendidas;
+        private System.Windows.Forms.DataVisualization.Charting.Chart ctMaiorLucro;
     }
 }
 

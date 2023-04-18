@@ -1,5 +1,6 @@
 ﻿using SB1.ProjTest.Model;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 
 namespace SB1.ProjTest.Controller
@@ -62,7 +63,7 @@ namespace SB1.ProjTest.Controller
             }
         }
         #endregion
-        #region Consultar
+        #region ConsultarId
         public static int ConsultarId(int id)
         {
             var contexto = new Contexto();
@@ -87,7 +88,7 @@ namespace SB1.ProjTest.Controller
             }
         }
         #endregion
-        #region Consultar
+        #region ConsultarPrecoCusto
         public static double ConsultarPrecoCusto(int id)
         {
             var contexto = new Contexto();
@@ -112,7 +113,7 @@ namespace SB1.ProjTest.Controller
             }
         }
         #endregion
-        #region Consultar
+        #region ConsultarPrecoVenda
         public static double ConsultarPrecoVenda(int id)
         {
             var contexto = new Contexto();
@@ -127,6 +128,31 @@ namespace SB1.ProjTest.Controller
                     {
                         //retorna a "id" e o contexto
                         return TabelaPreco.ConsultarPrecoVenda(id, contexto);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+        }
+        #endregion
+        #region ConsultarMargemLucro
+        public static List<double> ConsultarMargemLucro()
+        {
+            var contexto = new Contexto();
+            //variavel recebendo da data base
+            var transacao = contexto.Database.BeginTransaction();
+
+            try
+            {
+                using (contexto)
+                {
+                    using (transacao)
+                    {
+                        //retorna a "id" e o contexto
+                        return TabelaPreco.ConsultarMargemLucro(contexto);
                     }
                 }
             }

@@ -48,6 +48,9 @@
             // 
             // gpListaItens
             // 
+            this.gpListaItens.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gpListaItens.BackColor = System.Drawing.SystemColors.Window;
             this.gpListaItens.Controls.Add(this.btSelecionarItem);
             this.gpListaItens.Controls.Add(this.dgListaItens);
