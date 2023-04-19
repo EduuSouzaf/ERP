@@ -35,6 +35,13 @@ namespace SB1.ProjTest.View
             this.btAbrirCadastro = new System.Windows.Forms.Button();
             this.btImprimir = new System.Windows.Forms.Button();
             this.dgConsultaPedido = new System.Windows.Forms.DataGridView();
+            this.idPedido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tipoPedido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalNota = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataInsercao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lbTipoPedido = new System.Windows.Forms.Label();
             this.cbTipoPedido = new System.Windows.Forms.ComboBox();
             this.lbStatus = new System.Windows.Forms.Label();
@@ -46,13 +53,6 @@ namespace SB1.ProjTest.View
             this.txIdParceiro = new System.Windows.Forms.TextBox();
             this.txNomeParceiro = new System.Windows.Forms.TextBox();
             this.btListaParceiro = new System.Windows.Forms.Button();
-            this.idPedido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoPedido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalNota = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataInsercao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataVencimento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gpConsulta.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgConsultaPedido)).BeginInit();
             this.SuspendLayout();
@@ -92,6 +92,7 @@ namespace SB1.ProjTest.View
             this.btImprimir.TabIndex = 11;
             this.btImprimir.Text = "Imprimir";
             this.btImprimir.UseVisualStyleBackColor = true;
+            this.btImprimir.Click += new System.EventHandler(this.btImprimir_Click);
             // 
             // dgConsultaPedido
             // 
@@ -116,6 +117,69 @@ namespace SB1.ProjTest.View
             this.dgConsultaPedido.TabIndex = 0;
             this.dgConsultaPedido.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgConsultaPedido_CellFormatting);
             this.dgConsultaPedido.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgConsultaPedido_CellMouseDoubleClick);
+            // 
+            // idPedido
+            // 
+            this.idPedido.DataPropertyName = "idPedido";
+            this.idPedido.HeaderText = "Nº Pedido";
+            this.idPedido.Name = "idPedido";
+            this.idPedido.ReadOnly = true;
+            this.idPedido.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.idPedido.Width = 80;
+            // 
+            // tipoPedido
+            // 
+            this.tipoPedido.DataPropertyName = "tipoPedido";
+            this.tipoPedido.HeaderText = "Tipo de Pedido";
+            this.tipoPedido.Name = "tipoPedido";
+            this.tipoPedido.ReadOnly = true;
+            this.tipoPedido.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.tipoPedido.Width = 110;
+            // 
+            // nome
+            // 
+            this.nome.DataPropertyName = "nome";
+            this.nome.HeaderText = "Cliente/Fornecedor";
+            this.nome.Name = "nome";
+            this.nome.ReadOnly = true;
+            this.nome.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.nome.Width = 301;
+            // 
+            // totalNota
+            // 
+            this.totalNota.DataPropertyName = "totalNota";
+            this.totalNota.HeaderText = "Valor Total";
+            this.totalNota.Name = "totalNota";
+            this.totalNota.ReadOnly = true;
+            this.totalNota.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.totalNota.Width = 150;
+            // 
+            // dataInsercao
+            // 
+            this.dataInsercao.DataPropertyName = "dataInsercao";
+            this.dataInsercao.HeaderText = "Data Inserção";
+            this.dataInsercao.Name = "dataInsercao";
+            this.dataInsercao.ReadOnly = true;
+            this.dataInsercao.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataInsercao.Width = 130;
+            // 
+            // dataVencimento
+            // 
+            this.dataVencimento.DataPropertyName = "dataVencimento";
+            this.dataVencimento.HeaderText = "Data Vencimento ";
+            this.dataVencimento.Name = "dataVencimento";
+            this.dataVencimento.ReadOnly = true;
+            this.dataVencimento.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataVencimento.Width = 120;
+            // 
+            // status
+            // 
+            this.status.DataPropertyName = "status";
+            this.status.HeaderText = "Status";
+            this.status.Name = "status";
+            this.status.ReadOnly = true;
+            this.status.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.status.Width = 120;
             // 
             // lbTipoPedido
             // 
@@ -236,69 +300,6 @@ namespace SB1.ProjTest.View
             this.btListaParceiro.Text = "...";
             this.btListaParceiro.UseVisualStyleBackColor = true;
             this.btListaParceiro.Click += new System.EventHandler(this.btListaParceiro_Click);
-            // 
-            // idPedido
-            // 
-            this.idPedido.DataPropertyName = "idPedido";
-            this.idPedido.HeaderText = "Nº Pedido";
-            this.idPedido.Name = "idPedido";
-            this.idPedido.ReadOnly = true;
-            this.idPedido.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.idPedido.Width = 80;
-            // 
-            // tipoPedido
-            // 
-            this.tipoPedido.DataPropertyName = "tipoPedido";
-            this.tipoPedido.HeaderText = "Tipo de Pedido";
-            this.tipoPedido.Name = "tipoPedido";
-            this.tipoPedido.ReadOnly = true;
-            this.tipoPedido.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.tipoPedido.Width = 110;
-            // 
-            // nome
-            // 
-            this.nome.DataPropertyName = "nome";
-            this.nome.HeaderText = "Cliente/Fornecedor";
-            this.nome.Name = "nome";
-            this.nome.ReadOnly = true;
-            this.nome.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.nome.Width = 301;
-            // 
-            // totalNota
-            // 
-            this.totalNota.DataPropertyName = "totalNota";
-            this.totalNota.HeaderText = "Valor Total";
-            this.totalNota.Name = "totalNota";
-            this.totalNota.ReadOnly = true;
-            this.totalNota.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.totalNota.Width = 150;
-            // 
-            // dataInsercao
-            // 
-            this.dataInsercao.DataPropertyName = "dataInsercao";
-            this.dataInsercao.HeaderText = "Data Inserção";
-            this.dataInsercao.Name = "dataInsercao";
-            this.dataInsercao.ReadOnly = true;
-            this.dataInsercao.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataInsercao.Width = 130;
-            // 
-            // dataVencimento
-            // 
-            this.dataVencimento.DataPropertyName = "dataVencimento";
-            this.dataVencimento.HeaderText = "Data Vencimento ";
-            this.dataVencimento.Name = "dataVencimento";
-            this.dataVencimento.ReadOnly = true;
-            this.dataVencimento.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.dataVencimento.Width = 120;
-            // 
-            // status
-            // 
-            this.status.DataPropertyName = "status";
-            this.status.HeaderText = "Status";
-            this.status.Name = "status";
-            this.status.ReadOnly = true;
-            this.status.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.status.Width = 120;
             // 
             // ConsultaPedidoView
             // 

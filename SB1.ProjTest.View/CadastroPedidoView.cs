@@ -1,5 +1,6 @@
 ﻿using SB1.ProjTest.Controller;
 using SB1.ProjTest.Model;
+using SB1.ProjTest.Relatorio;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -341,6 +342,30 @@ namespace SB1.ProjTest.View
 
             }
             return estoqueList;
+        }
+        #endregion
+        #region Imprimir
+        private void Imprimir()
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(txIdPedido.Text))
+                {
+                    RelatorioPedido relatorio = new RelatorioPedido();
+                    relatorio.SetParameterValue("id", txIdPedido.Text);
+
+                    rvRelatorio childForm = new rvRelatorio(relatorio);
+                    childForm.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                string mensagem = "Erro ao imprimir o Pedido. Erro: " + ex.Message;
+                string titulo = "Erro. ";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
         }
         #endregion
         #region VerificaStatus
@@ -830,5 +855,10 @@ namespace SB1.ProjTest.View
             }
         }
         #endregion
+
+        private void btImprimir_Click(object sender, EventArgs e)
+        {
+            Imprimir();
+        }
     }
 }

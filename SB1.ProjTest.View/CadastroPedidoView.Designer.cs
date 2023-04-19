@@ -65,6 +65,7 @@
             this.DtDataVencimento = new System.Windows.Forms.DateTimePicker();
             this.btListaParceiros = new System.Windows.Forms.Button();
             this.DtDataInsercao = new System.Windows.Forms.DateTimePicker();
+            this.btImprimir = new System.Windows.Forms.Button();
             this.gbItem.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgListaItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.programaEduardoDataSet)).BeginInit();
@@ -188,6 +189,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.gbItem.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.gbItem.Controls.Add(this.btImprimir);
             this.gbItem.Controls.Add(this.btFinalizarPedido);
             this.gbItem.Controls.Add(this.txTotal);
             this.gbItem.Controls.Add(this.lbTotal);
@@ -428,6 +430,19 @@
             this.DtDataInsercao.Size = new System.Drawing.Size(101, 20);
             this.DtDataInsercao.TabIndex = 42;
             // 
+            // btImprimir
+            // 
+            this.btImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btImprimir.BackColor = System.Drawing.SystemColors.Window;
+            this.btImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btImprimir.Location = new System.Drawing.Point(564, 348);
+            this.btImprimir.Name = "btImprimir";
+            this.btImprimir.Size = new System.Drawing.Size(96, 24);
+            this.btImprimir.TabIndex = 39;
+            this.btImprimir.Text = "Imprimir";
+            this.btImprimir.UseVisualStyleBackColor = false;
+            this.btImprimir.Click += new System.EventHandler(this.btImprimir_Click);
+            // 
             // CadastroPedidoView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -501,5 +516,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn valorTotal;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
         private System.Windows.Forms.Button btFinalizarPedido;
+        private System.Windows.Forms.Button btImprimir;
     }
 }

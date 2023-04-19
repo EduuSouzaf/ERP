@@ -1,4 +1,5 @@
 ﻿using SB1.ProjTest.Controller;
+using SB1.ProjTest.Relatorio;
 using System;
 using System.Windows.Forms;
 
@@ -198,6 +199,54 @@ namespace SB1.ProjTest.View
             }
         }
         #endregion
+        #region Imprimir
+        private void Imprimir()
+        {
+            try
+            {
+                string tipoPedido = cbTipoPedido.Text;
+
+                if (string.IsNullOrEmpty(tipoPedido))
+                {
+                    throw new Exception("Selecione o tipo de pedido");
+                }
+
+                if (tipoPedido.Equals("Compra"))
+                {
+                    tipoPedido = "PC";
+                }
+                else if (tipoPedido.Equals("Venda"))
+                {
+                    tipoPedido = "PV";
+                }
+
+                if (tipoPedido.Equals("PC"))
+                {
+                    RelatorioPedidoGeral relatorio = new RelatorioPedidoGeral();
+
+                    relatorio.SetParameterValue("tipo", tipoPedido);
+                    rvRelatorio childForm = new rvRelatorio(relatorio);
+                    childForm.Show();
+                }
+                else if (tipoPedido.Equals("PV"))
+                {
+                    RelatorioPedidoGeral relatorio = new RelatorioPedidoGeral();
+
+                    relatorio.SetParameterValue("tipo", tipoPedido);
+                    rvRelatorio childForm = new rvRelatorio(relatorio);
+                    childForm.Show();
+                }
+            }
+            catch (Exception ex)
+            {
+                string mensagem = "Erro: " + ex.Message;
+                string titulo = "Erro. ";
+                MessageBoxButtons botoes = MessageBoxButtons.OK;
+                MessageBoxIcon icone = MessageBoxIcon.Error;
+                MessageBox.Show(mensagem, titulo, botoes, icone);
+            }
+        }
+        #endregion
         #region btConsultar_Click
         private void btConsultar_Click(object sender, EventArgs e)
         {
@@ -349,5 +398,10 @@ namespace SB1.ProjTest.View
             }
         }
         #endregion
+
+        private void btImprimir_Click(object sender, EventArgs e)
+        {
+            Imprimir();
+        }
     }
 }
